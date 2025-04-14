@@ -1,3 +1,4 @@
+/* === Базовые стили === */
 body {
     font-family: Arial, sans-serif;
     display: flex;
@@ -7,28 +8,12 @@ body {
     margin: 0;
     background-color: #1a0633;
     background-image: 
-        radial-gradient(circle at center, 
-            rgba(138, 43, 226, 0.4) 0%, 
-            transparent 70%),
-        repeating-linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0.05) 0px,
-            rgba(255, 255, 255, 0.05) 1px,
-            transparent 1px,
-            transparent 10px),
-        repeating-linear-gradient(
-            -45deg,
-            rgba(255, 255, 255, 0.05) 0px,
-            rgba(255, 255, 255, 0.05) 1px,
-            transparent 1px,
-            transparent 10px);
-    background-size: 
-        100% 100%,
-        20px 20px,
-        20px 20px;
-    
+        radial-gradient(circle at center, rgba(138, 43, 226, 0.4) 0%, transparent 70%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 1px, transparent 1px, transparent 10px),
+        repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 1px, transparent 1px, transparent 10px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+    overflow: hidden;
 }
-
 
 /* === Контейнер контента === */
 .content-wrapper {
@@ -39,25 +24,42 @@ body {
     border-radius: 20px;
     box-shadow: 0 0 30px rgba(126, 87, 194, 0.5);
     max-width: 900px;
+    height: 800px;
     width: 95%;
     text-align: center;
-  }
-
-h1 {
-    margin-bottom: 70px;
-    font-size: 40px;
-    text-align: center; 
-    text-transform: uppercase; 
-    letter-spacing: 3px; 
-    font-family: 'Press Start 2P', cursive;
-    text-shadow: none; 
-    position: relative; 
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    line-height: 1.5;
-
 }
 
+/* === Заголовки === */
+/* Заголовок h1 */
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 60px;
+    color: transparent; /* Делаем цвет текста прозрачным */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #9c7bff, #7e57c2); /* Градиент для текста */
+    -webkit-background-clip: text; /* Для старых браузеров */
+    background-clip: text; /* Для новых браузеров */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Для освещения текста */
+    animation: pulse 3s ease-in-out infinite alternate;
+    margin-bottom: 30px;
+    
+}
+
+/* Заголовок h2 */
+h2 {
+    
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    line-height: 1.5;
+    
+}
+
+/* === Контейнер кнопок === */
 .circle-container {
     position: relative;
     width: 600px;
@@ -69,53 +71,20 @@ h1 {
     position: absolute;
     width: 160px;
     height: 160px;
-    
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s;
     transform-origin: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: none;
 }
 
-
-#red {
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #de324c;
-}
-
-#blue {
-    top: 150px;
-    right: 100px;
-    background-color: #369acc;
-}
-
-#green {
-    bottom: 150px;
-    right: 100px;
-    background-color: #95cf92;
-}
-
-#yellow {
-    bottom: 70px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #f8e16f;
-}
-
-#purple {
-    bottom: 150px;
-    left: 100px;
-    background-color: #9656a2;
-}
-
-#orange {
-    top: 150px;
-    left: 100px;
-    background-color: #f4895f;
-}
-
+#red { top: 70px; left: 50%; transform: translateX(-50%); background-color: #de324c; }
+#blue { top: 150px; right: 100px; background-color: #369acc; }
+#green { bottom: 150px; right: 100px; background-color: #95cf92; }
+#yellow { bottom: 70px; left: 50%; transform: translateX(-50%); background-color: #f8e16f; }
+#purple { bottom: 150px; left: 100px; background-color: #9656a2; }
+#orange { top: 150px; left: 100px; background-color: #f4895f; }
 
 .center-circle {
     position: absolute;
@@ -137,6 +106,7 @@ h1 {
     border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
+/* === Стиль сообщений === */
 .game-info {
     font-size: 1.3em;
     margin-bottom: 15px;
@@ -151,7 +121,7 @@ h1 {
     font-size: 1em;
     color: #000;
     font-weight: bold;
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Arial Black', sans-serif;
     margin-bottom: 15px;
     min-height: 20px;
     text-align: center;
@@ -162,6 +132,7 @@ h1 {
     display: none;
 }
 
+/* === Контроль кнопок === */
 .controls {
     display: flex;
     flex-direction: column;
@@ -170,37 +141,40 @@ h1 {
     align-items: center;
 }
 
+/* === Кнопки === */
 button {
+    background-color: #7e57c2;
+    color: white;
     padding: 12px 24px;
-    font-size: 1.1em;
-    color: #312134; 
-    background-color: #af8db6;
-    border: none;
-    border-radius: 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
+    border-radius: 30px;
     transition: all 0.3s;
-    width: 80%;
-    max-width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-transform: uppercase;
+    border: none;
     font-family: 'Press Start 2P', cursive;
+    text-transform: uppercase;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 button:hover {
-    background-color: #ccb7d0; 
+    background-color: #9575cd;
     transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 #nextLevelBtn {
-    background-color: #af8db6;
+    background-color: #7e57c2;
 }
 
 #nextLevelBtn:hover {
-    background-color: #ccb7d0;
+    background-color: #9575cd;
 }
 
-/* Обновленный стиль подсветки - более мягкий */
+/* === Подсветка кнопок === */
 .highlight {
     transform: scale(1.1);
     filter: brightness(1.4);
@@ -210,7 +184,6 @@ button:hover {
     box-shadow: 0 0 15px rgb(253, 250, 250);
 }
 
-/* Индивидуальные настройки для проблемных цветов */
 #yellow.highlight {
     box-shadow: 0 0 15px rgb(253, 250, 250), 
                 0 0 25px rgba(248, 225, 111, 0.6);
@@ -229,7 +202,6 @@ button:hover {
     filter: brightness(1.35);
 }
 
-/* Остальные цвета */
 #red.highlight {
     box-shadow: 0 0 15px rgb(253, 250, 250),
                 0 0 25px rgba(222, 50, 76, 0.6);
@@ -244,43 +216,273 @@ button:hover {
     box-shadow: 0 0 15px rgb(253, 250, 250),
                 0 0 25px rgba(150, 86, 162, 0.6);
 }
+
 .disabled-btn {
     pointer-events: none;
     opacity: 0.7;
 }
-.game-info.hidden {
-    display: none;
+
+/* === Оверлей уровня === */
+.level-up-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease-out;
 }
 
+.level-up-container {
+    background: linear-gradient(135deg, #1a0633, #2a1050);
+    border: 3px solid #7e57c2;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    padding: 30px;
+    box-shadow: 0 0 40px rgba(126, 87, 194, 0.6);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+.level-up-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(156, 123, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+.level-complete-section {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    
+}
+
+.stars {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.star {
+    width: 40px;
+    height: 40px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="gold"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>') no-repeat center;
+    background-size: contain;
+    animation: bounce 1s infinite alternate;
+}
+
+.star:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.star:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.level-stats {
+    background: rgba(42, 16, 80, 0.6);
+    border-radius: 15px;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.stat {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.stat-label {
+    color: #b39ddb;
+    font-size: 0.8rem;
+}
+
+.stat-value {
+    color: #fff;
+    font-size: 0.9rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+.next-level-button {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    color: #e0d6ff;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #2a1050;
+    border: 3px solid #7e57c2;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(126, 87, 194, 0.8);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    min-width: 200px;
+}
+
+.next-level-button:hover {
+    background-color: #3d1a75;
+    box-shadow: 0 0 30px rgba(126, 87, 194, 1);
+    transform: translateY(-3px);
+}
+
+/* === Анимации === */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-10px); }
+}
+
+
+/* === Стиль оверлея "Игра окончена" === */
+.game-over-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1001;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.game-over-text {
+    font-size: 2rem;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+#gameOverDetails {
+    font-size: 1rem;
+    color: #e0d6ff;
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.start-button {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    color: #e0d6ff;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #2a1050;
+    border: 3px solid #7e57c2;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(126, 87, 194, 0.8);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.start-button:hover {
+    background-color: #3d1a75;
+    box-shadow: 0 0 30px rgba(126, 87, 194, 1);
+    transform: translateY(-3px);
+}
+
+/* === Оверлей для начала игры === */
+.intro-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1002;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.intro-image {
+    max-width: 200px;
+    margin-bottom: 30px;
+    filter: drop-shadow(0 0 10px rgba(156, 123, 255, 0.7));
+}
+
+.intro-text {
+    font-size: 1.2rem;
+    color: #e0d6ff;
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* === Животные с облачками === */
 .animal-container {
     position: absolute;
     z-index: 5;
     transition: all 0.4s ease;
-  }
-  
-  .floating-image {
+}
+
+.top-left { top: 5%; left: 5%; transform: rotate(-10deg); }
+.top-right { top: 5%; right: 5%; transform: rotate(10deg); }
+.center-left { top: 40%; left: 8%; transform: rotate(-5deg); }
+.center-right { top: 40%; right: 8%; transform: rotate(5deg); }
+.bottom-left { bottom: 12%; left: 8%; transform: rotate(-8deg); }
+.bottom-right { bottom: 12%; right: 8%; transform: rotate(8deg); }
+
+.floating-image {
     width: 180px;
     height: auto;
     opacity: 0.9;
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
     transition: all 0.3s ease;
     cursor: pointer;
-  }
-  
-  .floating-image:hover {
+}
+
+.floating-image:hover {
     opacity: 1;
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
     transform: scale(1.15) rotate(5deg);
-  }
-  
-  /* Облачка */
-  .speech-bubble {
+}
+
+.speech-bubble {
     position: absolute;
     background: white;
     color: #1a0633;
     padding: 15px 20px;
     border-radius: 20px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-family: 'Press Start 2P', cursive;
     opacity: 0;
     transform: scale(0.9);
@@ -290,27 +492,25 @@ button:hover {
     text-align: center;
     box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
     line-height: 1.4;
-  }
-  
-  /* Расположение облачков */
-  .animal-container:nth-child(1) .speech-bubble,
-  .animal-container:nth-child(3) .speech-bubble,
-  .animal-container:nth-child(5) .speech-bubble {
+}
+
+.animal-container:nth-child(1) .speech-bubble,
+.animal-container:nth-child(3) .speech-bubble,
+.animal-container:nth-child(5) .speech-bubble {
     left: 110%;
     top: 50%;
     transform: translateY(-50%);
-  }
-  
-  .animal-container:nth-child(2) .speech-bubble,
-  .animal-container:nth-child(4) .speech-bubble,
-  .animal-container:nth-child(6) .speech-bubble {
+}
+
+.animal-container:nth-child(2) .speech-bubble,
+.animal-container:nth-child(4) .speech-bubble,
+.animal-container:nth-child(6) .speech-bubble {
     right: 110%;
     top: 50%;
     transform: translateY(-50%);
-  }
-  
-  /* Хвостики облачков */
-  .speech-bubble:after {
+}
+
+.speech-bubble:after {
     content: '';
     position: absolute;
     width: 0;
@@ -318,35 +518,84 @@ button:hover {
     border: 15px solid transparent;
     top: 50%;
     margin-top: -15px;
-  }
-  
-  .animal-container:nth-child(1) .speech-bubble:after,
-  .animal-container:nth-child(3) .speech-bubble:after,
-  .animal-container:nth-child(5) .speech-bubble:after {
+}
+
+.animal-container:nth-child(1) .speech-bubble:after,
+.animal-container:nth-child(3) .speech-bubble:after,
+.animal-container:nth-child(5) .speech-bubble:after {
     border-right-color: white;
     right: 100%;
     border-left: 0;
-  }
-  
-  .animal-container:nth-child(2) .speech-bubble:after,
-  .animal-container:nth-child(4) .speech-bubble:after,
-  .animal-container:nth-child(6) .speech-bubble:after {
+}
+
+.animal-container:nth-child(2) .speech-bubble:after,
+.animal-container:nth-child(4) .speech-bubble:after,
+.animal-container:nth-child(6) .speech-bubble:after {
     border-left-color: white;
     left: 100%;
     border-right: 0;
-  }
-  
-  /* Цвета облачков */
-  .animal-container:nth-child(1) .speech-bubble { background: #ffcc00; }
-  .animal-container:nth-child(2) .speech-bubble { background: #ff6666; }
-  .animal-container:nth-child(3) .speech-bubble { background: #66ccff; }
-  .animal-container:nth-child(4) .speech-bubble { background: #99ff99; }
-  .animal-container:nth-child(5) .speech-bubble { background: #ff99cc; }
-  .animal-container:nth-child(6) .speech-bubble { background: #ccccff; }
-  
-  /* Анимация облачков */
-  .animal-container:hover .speech-bubble {
+}
+
+.animal-container:nth-child(1) .speech-bubble { background: #ffcc00; }
+.animal-container:nth-child(2) .speech-bubble { background: #ff6666; }
+.animal-container:nth-child(3) .speech-bubble { background: #66ccff; }
+.animal-container:nth-child(4) .speech-bubble { background: #99ff99; }
+.animal-container:nth-child(5) .speech-bubble { background: #ff99cc; }
+.animal-container:nth-child(6) .speech-bubble { background: #ccccff; }
+
+.animal-container:hover .speech-bubble {
     opacity: 1;
     transform: translateY(-50%) scale(1);
-  }
-  
+}
+
+/* === Адаптивность === */
+@media (max-width: 768px) {
+    .circle-container {
+        width: 400px;
+        height: 400px;
+    }
+    
+    .color-btn {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .center-circle {
+        width: 200px;
+        height: 200px;
+    }
+    
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+    }
+    
+    .floating-image {
+        width: 120px;
+    }
+    
+    .animal-container {
+        display: none; /* Скрываем животных на мобильных */
+    }
+}
+
+@media (max-width: 480px) {
+    .circle-container {
+        width: 300px;
+        height: 300px;
+    }
+    
+    .color-btn {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .center-circle {
+        width: 150px;
+        height: 150px;
+    }
+    
+    h1 {
+        font-size: 1.2rem;
+    }
+}

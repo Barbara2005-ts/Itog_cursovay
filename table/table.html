@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Потеряшки</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="table.css">
+</head>
+<body>
+     <!-- Животные с пузырьками -->
+     <div class="animal-container top-left">
+        <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
+        <div class="speech-bubble">Обгоняй забывчивость на виражах!</div>
+    </div>
+
+    <div class="animal-container top-right">
+        <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
+        <div class="speech-bubble">Твой мозг - это сверхзвуковой лайнер!</div>
+    </div>
+
+    <div class="animal-container center-left">
+        <img src="character/humster.png" alt="Хомяк" class="floating-image">
+        <div class="speech-bubble">Крути колесо тренировки памяти!</div>
+    </div>
+
+    <div class="animal-container bottom-right">
+        <img src="character/dog.png" alt="Собака" class="floating-image">
+        <div class="speech-bubble">Верный друг - твоя память!</div>
+    </div>
+
+    <div class="animal-container bottom-left">
+        <img src="character/enot.png" alt="Енот" class="floating-image">
+        <div class="speech-bubble">Мою память не проведешь!</div>
+    </div>
+
+    <div class="animal-container center-right">
+        <img src="character/rabbit.png" alt="Кролик" class="floating-image">
+        <div class="speech-bubble">Быстрый ум - быстрая победа!</div>
+    </div>
+
+    <div class="content-wrapper" id="gameContainer">
+        <h1>Потеряшки</h1>
+        <div id="table" class="table">
+            <!-- Здесь будут отображаться предметы -->
+        </div>
+        <button class="button" id="start-game">Начать игру</button>
+        <div class="info-item">
+            <span class="info-label">Уровень:</span>
+            <span id="level" class="info-value">1</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">Очки:</span>
+            <span id="score" class="info-value">0</span>
+        </div>
+        
+        
+        <div id="message"></div>
+    </div>
+    <script src="table.js"></script>
+</body>
+</html>

@@ -8,38 +8,41 @@
     <link rel="stylesheet" href="color.css">
 </head>
 <body>
-    <!-- Животные -->
-  <div class="animal-container" style="top:5%; left:5%; transform:rotate(-10deg)">
-    <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
-    <div class="speech-bubble">Обгоняй забывчивость на виражах!</div>
-</div>
+    <!-- Животные с пузырьками -->
+    <div class="animal-container top-left">
+        <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
+        <div class="speech-bubble">Обгоняй забывчивость на виражах!</div>
+    </div>
 
-<div class="animal-container" style="top:5%; right:5%; transform:rotate(10deg)">
-    <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
-    <div class="speech-bubble">Твой мозг - это сверхзвуковой лайнер!</div>
-</div>
+    <div class="animal-container top-right">
+        <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
+        <div class="speech-bubble">Твой мозг - это сверхзвуковой лайнер!</div>
+    </div>
 
-<div class="animal-container" style="top:40%; left:8%; transform:rotate(-5deg)">
-    <img src="character/humster.png" alt="Хомяк" class="floating-image">
-    <div class="speech-bubble">Крути колесо тренировки памяти!</div>
-</div>
+    <div class="animal-container center-left">
+        <img src="character/humster.png" alt="Хомяк" class="floating-image">
+        <div class="speech-bubble">Крути колесо тренировки памяти!</div>
+    </div>
 
-<div class="animal-container" style="bottom:12%; right:8%; transform:rotate(8deg)">
-    <img src="character/dog.png" alt="Собака" class="floating-image">
-    <div class="speech-bubble">Верный друг - твоя память!</div>
-</div>
+    <div class="animal-container bottom-right">
+        <img src="character/dog.png" alt="Собака" class="floating-image">
+        <div class="speech-bubble">Верный друг - твоя память!</div>
+    </div>
 
-<div class="animal-container" style="bottom:12%; left:8%; transform:rotate(-8deg)">
-    <img src="character/enot.png" alt="Енот" class="floating-image">
-    <div class="speech-bubble">Мою память не проведешь!</div>
-</div>
+    <div class="animal-container bottom-left">
+        <img src="character/enot.png" alt="Енот" class="floating-image">
+        <div class="speech-bubble">Мою память не проведешь!</div>
+    </div>
 
-<div class="animal-container" style="top:40%; right:8%; transform:rotate(5deg)">
-    <img src="character/rabbit.png" alt="Кролик" class="floating-image">
-    <div class="speech-bubble">Быстрый ум - быстрая победа!</div>
-</div>
-    <div class="content-wrapper">
-        <h1>Запомни последовательность</h1>
+    <div class="animal-container center-right">
+        <img src="character/rabbit.png" alt="Кролик" class="floating-image">
+        <div class="speech-bubble">Быстрый ум - быстрая победа!</div>
+    </div>
+    
+    <!-- Основной контейнер игры -->
+    <div class="content-wrapper hidden" id="gameContainer">
+        <h1>Цветные Вспышки</h1>
+        <h2>Запомни последовательность</h2>
         <div class="circle-container">
             <button id="red" class="color-btn"></button>
             <button id="blue" class="color-btn"></button>
@@ -47,18 +50,58 @@
             <button id="yellow" class="color-btn"></button>
             <button id="purple" class="color-btn"></button>
             <button id="orange" class="color-btn"></button>
+            
             <div class="center-circle">
                 <div class="game-info">
                     <div>Уровень: <span id="level">1</span></div>
                     <div>Очки: <span id="score">0</span></div>
                 </div>
                 <div id="message" class="message hidden"></div>
-                <div class="controls">
-                    <button id="startBtn" data-text="Старт">Старт</button>
-                    <button id="nextLevelBtn" class="hidden" data-text="Следующий уровень">Следующий уровень</button>
-                </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Оверлей с изображением и приветствием -->
+    <div id="introOverlay" class="intro-overlay">
+        <img src="character/rabbit.png" alt="Персонаж приветствует" class="intro-image">
+        <p class="intro-text">Добро пожаловать в игру! Ты готов?</p>
+        <button id="startGameBtn" class="start-button">Всегда готов!</button>
+    </div>
+    
+    <!-- Оверлей для завершения уровня -->
+    <div id="levelUp" class="level-up-overlay hidden">
+        <div class="level-up-container">
+            <div class="level-complete-section">
+                <div class="stars">
+                    <div class="star"></div>
+                    <div class="star"></div>
+                    <div class="star"></div>
+                </div>
+                <h2>УРОВЕНЬ ПРОЙДЕН!</h2>
+                <div class="level-stats">
+                    <div class="stat">
+                        <span class="stat-label">Следующий уровень:</span>
+                        <span id="newLevel" class="stat-value">2</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Бонус за уровень:</span>
+                        <span id="bonus" class="stat-value">+0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">Общий счет:</span>
+                        <span id="totalScore" class="stat-value">0</span>
+                    </div>
+                </div>
+            </div>
+            <button id="continueBtn" class="next-level-button pulse">Продолжить →</button>
+        </div>
+    </div>
+
+    <!-- Оверлей конца игры -->
+    <div id="gameOverOverlay" class="game-over-overlay hidden">
+        <p class="game-over-text">ИГРА ОКОНЧЕНА!</p>
+        <p id="gameOverDetails">Вы достигли уровня: <span id="finalLevel">1</span><br>Итоговый счёт: <span id="finalScore">0</span></p>
+        <button id="restartGameBtn" class="start-button">ИГРАТЬ СНОВА</button>
     </div>
 
     <script src="color.js"></script>
