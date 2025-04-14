@@ -1,0 +1,352 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #1a0633;
+    background-image: 
+        radial-gradient(circle at center, 
+            rgba(138, 43, 226, 0.4) 0%, 
+            transparent 70%),
+        repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.05) 0px,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px,
+            transparent 10px),
+        repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.05) 0px,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px,
+            transparent 10px);
+    background-size: 
+        100% 100%,
+        20px 20px,
+        20px 20px;
+    
+}
+
+
+/* === Контейнер контента === */
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    background: rgba(26, 6, 51, 0.75);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(126, 87, 194, 0.5);
+    max-width: 900px;
+    width: 95%;
+    text-align: center;
+  }
+
+h1 {
+    margin-bottom: 70px;
+    font-size: 40px;
+    text-align: center; 
+    text-transform: uppercase; 
+    letter-spacing: 3px; 
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: none; 
+    position: relative; 
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    line-height: 1.5;
+
+}
+
+.circle-container {
+    position: relative;
+    width: 600px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.color-btn {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s;
+    transform-origin: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+#red {
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #de324c;
+}
+
+#blue {
+    top: 150px;
+    right: 100px;
+    background-color: #369acc;
+}
+
+#green {
+    bottom: 150px;
+    right: 100px;
+    background-color: #95cf92;
+}
+
+#yellow {
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f8e16f;
+}
+
+#purple {
+    bottom: 150px;
+    left: 100px;
+    background-color: #9656a2;
+}
+
+#orange {
+    top: 150px;
+    left: 100px;
+    background-color: #f4895f;
+}
+
+
+.center-circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(30px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.game-info {
+    font-size: 1.3em;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+    color: #000;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.message {
+    font-size: 1em;
+    color: #000;
+    font-weight: bold;
+    font-family: 'Press Start 2P', cursive;
+    margin-bottom: 15px;
+    min-height: 20px;
+    text-align: center;
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+
+button {
+    padding: 12px 24px;
+    font-size: 1.1em;
+    color: #312134; 
+    background-color: #af8db6;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 80%;
+    max-width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    font-family: 'Press Start 2P', cursive;
+}
+
+button:hover {
+    background-color: #ccb7d0; 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#nextLevelBtn {
+    background-color: #af8db6;
+}
+
+#nextLevelBtn:hover {
+    background-color: #ccb7d0;
+}
+
+/* Обновленный стиль подсветки - более мягкий */
+.highlight {
+    transform: scale(1.1);
+    filter: brightness(1.4);
+    opacity: 1;
+    z-index: 5;
+    transition: all 0.2s ease-out;
+    box-shadow: 0 0 15px rgb(253, 250, 250);
+}
+
+/* Индивидуальные настройки для проблемных цветов */
+#yellow.highlight {
+    box-shadow: 0 0 15px rgb(253, 250, 250), 
+                0 0 25px rgba(248, 225, 111, 0.6);
+    filter: brightness(1.3);
+}
+
+#green.highlight {
+    box-shadow: 0 0 15px rgb(253, 250, 250),
+                0 0 25px rgba(149, 207, 146, 0.5);
+    filter: brightness(1.35);
+}
+
+#orange.highlight {
+    box-shadow: 0 0 15px rgb(253, 250, 250),
+                0 0 25px rgba(244, 137, 95, 0.5);
+    filter: brightness(1.35);
+}
+
+/* Остальные цвета */
+#red.highlight {
+    box-shadow: 0 0 15px rgb(253, 250, 250),
+                0 0 25px rgba(222, 50, 76, 0.6);
+}
+
+#blue.highlight {
+    box-shadow: 0 0 15px rgb(253, 250, 250),
+                0 0 25px rgba(54, 154, 204, 0.6);
+}
+
+#purple.highlight {
+    box-shadow: 0 0 15px rgb(253, 250, 250),
+                0 0 25px rgba(150, 86, 162, 0.6);
+}
+.disabled-btn {
+    pointer-events: none;
+    opacity: 0.7;
+}
+.game-info.hidden {
+    display: none;
+}
+
+.animal-container {
+    position: absolute;
+    z-index: 5;
+    transition: all 0.4s ease;
+  }
+  
+  .floating-image {
+    width: 180px;
+    height: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .floating-image:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    transform: scale(1.15) rotate(5deg);
+  }
+  
+  /* Облачка */
+  .speech-bubble {
+    position: absolute;
+    background: white;
+    color: #1a0633;
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-family: 'Press Start 2P', cursive;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    z-index: 10;
+    max-width: 200px;
+    text-align: center;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    line-height: 1.4;
+  }
+  
+  /* Расположение облачков */
+  .animal-container:nth-child(1) .speech-bubble,
+  .animal-container:nth-child(3) .speech-bubble,
+  .animal-container:nth-child(5) .speech-bubble {
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .animal-container:nth-child(2) .speech-bubble,
+  .animal-container:nth-child(4) .speech-bubble,
+  .animal-container:nth-child(6) .speech-bubble {
+    right: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  /* Хвостики облачков */
+  .speech-bubble:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    top: 50%;
+    margin-top: -15px;
+  }
+  
+  .animal-container:nth-child(1) .speech-bubble:after,
+  .animal-container:nth-child(3) .speech-bubble:after,
+  .animal-container:nth-child(5) .speech-bubble:after {
+    border-right-color: white;
+    right: 100%;
+    border-left: 0;
+  }
+  
+  .animal-container:nth-child(2) .speech-bubble:after,
+  .animal-container:nth-child(4) .speech-bubble:after,
+  .animal-container:nth-child(6) .speech-bubble:after {
+    border-left-color: white;
+    left: 100%;
+    border-right: 0;
+  }
+  
+  /* Цвета облачков */
+  .animal-container:nth-child(1) .speech-bubble { background: #ffcc00; }
+  .animal-container:nth-child(2) .speech-bubble { background: #ff6666; }
+  .animal-container:nth-child(3) .speech-bubble { background: #66ccff; }
+  .animal-container:nth-child(4) .speech-bubble { background: #99ff99; }
+  .animal-container:nth-child(5) .speech-bubble { background: #ff99cc; }
+  .animal-container:nth-child(6) .speech-bubble { background: #ccccff; }
+  
+  /* Анимация облачков */
+  .animal-container:hover .speech-bubble {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+  }
+  

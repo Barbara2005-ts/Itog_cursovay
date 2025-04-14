@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Mania</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Животные -->
+    <div class="animal-container" style="top:5%; left:5%; transform:rotate(-10deg)">
+        <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
+        <div class="speech-bubble">Газ в пол - память на максимум!</div>
+    </div>
+    
+    <div class="animal-container" style="top:5%; right:5%; transform:rotate(10deg)">
+        <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
+        <div class="speech-bubble">Лети за рекордами!</div>
+    </div>
+    
+    <div class="animal-container" style="top:40%; left:8%; transform:rotate(-5deg)">
+        <img src="character/humster.png" alt="Хомяк" class="floating-image">
+        <div class="speech-bubble">Щёчки = кэш памяти!</div>
+    </div>
+    
+    <div class="animal-container" style="bottom:12%; right:8%; transform:rotate(8deg)">
+        <img src="character/dog.png" alt="Собака" class="floating-image">
+        <div class="speech-bubble">Развивай память - стань суперсыщиком!</div>
+    </div>
+    
+    <div class="animal-container" style="bottom:12%; left:8%; transform:rotate(-8deg)">
+        <img src="character/enot.png" alt="Енот" class="floating-image">
+        <div class="speech-bubble">Секреты памяти – в моих лапках!</div>
+    </div>
+    
+    <div class="animal-container" style="top:40%; right:8%; transform:rotate(5deg)">
+        <img src="character/rabbit.png" alt="Кролик" class="floating-image">
+        <div class="speech-bubble">Морковка для памяти? Да!</div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="content-wrapper">
+        <h1>Memory Mania</h1>
+
+        <div class="button-container">
+            <button class="button" onclick="startGame()">Играть</button>
+            <button class="button" onclick="showRules()">Правила игры</button>
+        </div>
+    </div>
+
+    <script>
+        function startGame() {
+            window.location.href = "gamePage.html";
+        }
+
+        function showRules() {
+            window.location.href = "rule.html";
+        }
+    </script>
+</body>
+</html>

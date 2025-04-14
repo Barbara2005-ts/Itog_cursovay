@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Memory</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <!-- Животные -->
+  <div class="animal-container" style="top:5%; left:5%; transform:rotate(-10deg)">
+    <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
+    <div class="speech-bubble">Обгоняй забывчивость на виражах!</div>
+</div>
+
+<div class="animal-container" style="top:5%; right:5%; transform:rotate(10deg)">
+    <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
+    <div class="speech-bubble">Твой мозг - это сверхзвуковой лайнер!</div>
+</div>
+
+<div class="animal-container" style="top:40%; left:8%; transform:rotate(-5deg)">
+    <img src="character/humster.png" alt="Хомяк" class="floating-image">
+    <div class="speech-bubble">Крути колесо тренировки памяти!</div>
+</div>
+
+<div class="animal-container" style="bottom:12%; right:8%; transform:rotate(8deg)">
+    <img src="character/dog.png" alt="Собака" class="floating-image">
+    <div class="speech-bubble">Верный друг - твоя память!</div>
+</div>
+
+<div class="animal-container" style="bottom:12%; left:8%; transform:rotate(-8deg)">
+    <img src="character/enot.png" alt="Енот" class="floating-image">
+    <div class="speech-bubble">Мою память не проведешь!</div>
+</div>
+
+<div class="animal-container" style="top:40%; right:8%; transform:rotate(5deg)">
+    <img src="character/rabbit.png" alt="Кролик" class="floating-image">
+    <div class="speech-bubble">Быстрый ум - быстрая победа!</div>
+</div>
+    <div class="content-wrapper">
+        <h1>Cosmic Memory</h1>
+        
+        <div class="game-info">
+            <div class="info-item">
+                <span class="info-label">Уровень:</span>
+                <span id="level" class="info-value">1</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Тема:</span>
+                <span id="theme" class="info-value"></span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Время:</span>
+                <span id="time" class="info-value">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Ходы:</span>
+                <span id="moves" class="info-value">0</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Очки:</span>
+                <span id="score" class="info-value">0</span>
+            </div>
+            <div class="progress-container">
+                <div id="progress" class="progress-bar"></div>
+            </div>
+        </div>
+
+        <div class="game-controls">
+            <button id="restart" class="button">Начать заново</button>
+        </div>
+
+        <div id="board" class="game-board"></div>
+
+        <!-- Оверлей завершения уровня -->
+        <div id="levelUp" class="level-up-overlay hidden">
+            <div class="level-up-container">
+                <div class="level-complete-section">
+                    <div class="stars">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                    <h2>УРОВЕНЬ ПРОЙДЕН!</h2>
+                    <div class="level-stats">
+                        <div class="stat">
+                            <span class="stat-label">Следующий уровень:</span>
+                            <span id="newLevel" class="stat-value">2</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Бонус за время:</span>
+                            <span id="bonus" class="stat-value">+0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Общий счет:</span>
+                            <span id="totalScore" class="stat-value">0</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="next-level-preview">
+                    <div class="character-container">
+                        <img id="nextLevelCharacter" src="" alt="Character" class="character-image">
+                    </div>
+                    <div class="level-info">
+                        <h3 id="nextLevelTitle">УРОВЕНЬ 2: ТРАНСПОРТ</h3>
+                        <p id="nextLevelPhrase" class="character-phrase"></p>
+                        <ul id="nextLevelFacts" class="facts-list"></ul>
+                    </div>
+                </div>
+                
+                <button id="nextLevelBtn" class="next-level-button pulse">Следующий уровень →</button>
+            </div>
+        </div>
+
+        <div id="finalScreen" class="final-screen">
+            <div class="final-content">
+                <h2>Поздравляем!</h2>
+                <p id="finalScore">Вы прошли все 10 уровней!</p>
+                <button id="playAgain" class="button">Играть снова</button>
+            </div>
+        </div>
+    </div>
+      <div id="timeOverOverlay" class="time-over-overlay hidden">
+        <div class="time-over-container">
+          <h2>ВРЕМЯ ВЫШЛО!</h2>
+          <div class="time-over-content">
+            <p>Вы набрали <span id="finalTimeScore">0</span> очков</p>
+            
+            <button id="timeOverRestart" class="time-over-button">Играть снова</button>
+          </div>
+        </div>
+      </div>
+
+    <script src="game.js"></script>
+</body>
+</html>

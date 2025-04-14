@@ -1,0 +1,204 @@
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #1a0633;
+    background-image: 
+        radial-gradient(circle at center, 
+            rgba(138, 43, 226, 0.4) 0%, 
+            transparent 70%),
+        repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.05) 0px,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px,
+            transparent 10px),
+        repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.05) 0px,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px,
+            transparent 10px);
+    background-size: 
+        100% 100%,
+        20px 20px,
+        20px 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.content-wrapper {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    padding: 40px;
+    background-color: rgba(26, 6, 51, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(126, 87, 194, 0.5);
+}
+
+/* Заголовок */
+h1 {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #fff;
+    text-shadow: 
+        0 0 15px rgba(126, 87, 194, 0.8),
+        0 0 30px rgba(126, 87, 194, 0.4);
+    margin-bottom: 40px;
+    background: linear-gradient(90deg, #9c7bff, #7e57c2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    padding: 0 30px;
+    animation: pulse 3s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.9; text-shadow: 0 0 15px rgba(126, 87, 194, 0.8); }
+    100% { opacity: 1; text-shadow: 0 0 25px rgba(126, 87, 194, 1), 0 0 40px rgba(100, 150, 255, 0.6); }
+}
+
+/* Контейнер кнопок */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+/* Кнопки */
+.button {
+    padding: 20px 40px;
+    font-size: 1.3rem;
+    color: #e0d6ff;
+    font-family: 'Press Start 2P', cursive;
+    background-color: #2a1050;
+    border: 4px solid #7e57c2;
+    border-radius: 12px;
+    box-shadow: 
+        0 0 20px rgba(126, 87, 194, 0.8),
+        inset 0 0 15px rgba(126, 87, 194, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    min-width: 280px;
+    position: relative;
+    overflow: hidden;
+}
+
+.button:hover {
+    background-color: #3d1a75;
+    box-shadow: 
+        0 0 30px rgba(126, 87, 194, 1),
+        inset 0 0 20px rgba(126, 87, 194, 0.6);
+    transform: translateY(-5px);
+    text-shadow: 0 0 10px #fff;
+}
+
+/* Животные */
+.animal-container {
+    position: absolute;
+    z-index: 5;
+    transition: all 0.4s ease;
+}
+
+.floating-image {
+    width: 180px;
+    height: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.floating-image:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* Облачка */
+.speech-bubble {
+    position: absolute;
+    background: white;
+    color: #1a0633;
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-family: 'Press Start 2P', cursive;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    z-index: 10;
+    max-width: 200px;
+    text-align: center;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    line-height: 1.4;
+}
+
+/* Расположение облачков */
+.animal-container:nth-child(1) .speech-bubble,
+.animal-container:nth-child(3) .speech-bubble,
+.animal-container:nth-child(5) .speech-bubble {
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.animal-container:nth-child(2) .speech-bubble,
+.animal-container:nth-child(4) .speech-bubble,
+.animal-container:nth-child(6) .speech-bubble {
+    right: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Хвостики облачков */
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    top: 50%;
+    margin-top: -15px;
+}
+
+.animal-container:nth-child(1) .speech-bubble:after,
+.animal-container:nth-child(3) .speech-bubble:after,
+.animal-container:nth-child(5) .speech-bubble:after {
+    border-right-color: white;
+    right: 100%;
+    border-left: 0;
+}
+
+.animal-container:nth-child(2) .speech-bubble:after,
+.animal-container:nth-child(4) .speech-bubble:after,
+.animal-container:nth-child(6) .speech-bubble:after {
+    border-left-color: white;
+    left: 100%;
+    border-right: 0;
+}
+
+/* Цвета облачков */
+.animal-container:nth-child(1) .speech-bubble { background: #ffcc00; }
+.animal-container:nth-child(2) .speech-bubble { background: #ff6666; }
+.animal-container:nth-child(3) .speech-bubble { background: #66ccff; }
+.animal-container:nth-child(4) .speech-bubble { background: #99ff99; }
+.animal-container:nth-child(5) .speech-bubble { background: #ff99cc; }
+.animal-container:nth-child(6) .speech-bubble { background: #ccccff; }
+
+/* Анимация облачков */
+.animal-container:hover .speech-bubble {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
