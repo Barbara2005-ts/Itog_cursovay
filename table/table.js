@@ -1,90 +1,114 @@
-const table = document.getElementById('table');
-const startButton = document.getElementById('start-game');
-const scoreDisplay = document.getElementById('score');
-const levelDisplay = document.getElementById('level');
-const messageDisplay = document.getElementById('message');
+const TOTAL_LEVELS = 10;
+    const items = [
+      '🍎','🍌','🍇','🍪','🍰','🧸','🪀','🎈','🎲','📦','🧦','🎁','🥕','🥚','🍋','🪁','🧃','🍭','🚗','🚕'
+    ];
 
-let score = 0;
-let level = 1;
-let items = [];
-let hiddenItemIndex = null;
+    let currentItems = [];
+    let missingItem = '';
+    let level = 1;
+    let score = 0;
 
-const itemImages = [
-    'items/abc-block.png', // Путь к изображению предмета 1
-    'items/duck.png', // Путь к изображению предмета 2
-    'items/piramida.png', // Путь к изображению предмета 3
-    'items/robot.png', // Путь к изображению предмета 4
-    'items/teddy-bear.png', // Путь к изображению предмета 5
-    'items/toy-rocket.png', // Путь к изображению предмета 6
-];
+    const board = document.getElementById('game-board');
+    const levelDisplay = document.getElementById('level');
+    const scoreDisplay = document.getElementById('score');
+    const message = document.getElementById('message');
+    const startButton = document.getElementById('start-button');
 
-startButton.addEventListener('click', startGame);
+    document.getElementById('rules-button').onclick = () => {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('rules-modal').style.display = 'block';
+    }
 
-function startGame() {
-    messageDisplay.textContent = '';
-    scoreDisplay.textContent = score;
-    levelDisplay.textContent = level;
-    items = generateItems(level);
-    displayItems();
-}
+    function closeRules() {
+      document.getElementById('overlay').style.display = 'none';
+      document.getElementById('rules-modal').style.display = 'none';
+    }
 
-function generateItems(level) {
-    const numberOfItems = 5 + level; // С каждым уровнем добавляются новые предметы
-    let generatedItems = [];
-    for (let i = 0; i < numberOfItems; i++) {
-        const itemIndex = Math.floor(Math.random() * itemImages.length); // Случайный индекс изображения
-        generatedItems.push({
-            image: itemImages[itemIndex], // Путь к изображению предмета
-            id: `item-${i}`, // Идентификатор для предмета
+    function startGame() {
+      level = 1;
+      score = 0;
+      updateUI();
+      startButton.style.display = 'none';
+      nextLevel();
+    }
+
+    function nextLevel() {
+      message.textContent = 'Запоминай предметы...';
+      board.innerHTML = '';
+      const count = 4 + level;
+      const shuffled = items.sort(() => 0.5 - Math.random());
+      currentItems = shuffled.slice(0, count);
+      missingItem = currentItems[Math.floor(Math.random() * currentItems.length)];
+
+      currentItems.forEach(item => {
+        const el = document.createElement('div');
+        el.textContent = item;
+        el.className = 'item';
+        board.appendChild(el);
+      });
+
+      setTimeout(() => {
+        board.innerHTML = '';
+        const visibleItems = currentItems.filter(i => i !== missingItem);
+        visibleItems.forEach(item => {
+          const el = document.createElement('div');
+          el.textContent = item;
+          el.className = 'item';
+          el.onclick = () => guessItem(item);
+          board.appendChild(el);
         });
+
+        const hidden = document.createElement('div');
+        hidden.textContent = '❓';
+        hidden.className = 'item';
+        hidden.onclick = () => guessItem(missingItem);
+        board.appendChild(hidden);
+
+        message.textContent = 'Что исчезло?';
+      }, 2000);
     }
-    hiddenItemIndex = Math.floor(Math.random() * numberOfItems); // Скрываем случайный предмет
-    return generatedItems;
-}
 
-function displayItems() {
-    table.innerHTML = ''; // Очистить таблицу
+    function guessItem(guess) {
+      const itemsEls = document.querySelectorAll('.item');
+      itemsEls.forEach(el => {
+        el.onclick = null;
+        if (el.textContent === missingItem) {
+          el.classList.add('correct');
+        } else if (el.textContent === guess) {
+          el.classList.add('wrong');
+        }
+      });
 
-    items.forEach((item, index) => {
-        const itemElement = document.createElement('div');
-        itemElement.classList.add('item');
-        itemElement.dataset.index = index;
-        
-        // Создание изображения для предмета
-        const img = document.createElement('img');
-        img.src = item.image;
-        img.alt = `Предмет ${index + 1}`;
-        img.classList.add('item-image'); // Класс для изображения
-        itemElement.appendChild(img);
-
-        itemElement.addEventListener('click', checkItem);
-        table.appendChild(itemElement);
-    });
-
-    // Пропадающий предмет
-    table.children[hiddenItemIndex].style.display = 'none';
-    setTimeout(() => {
-        table.children[hiddenItemIndex].style.display = 'block';
-        askToGuess();
-    }, 1000); // Показываем снова через секунду
-}
-
-function askToGuess() {
-    messageDisplay.textContent = 'Что пропало? Кликните на предмет!';
-}
-
-function checkItem(event) {
-    const clickedItemIndex = event.target.closest('.item').dataset.index;
-    
-    if (clickedItemIndex == hiddenItemIndex) {
+      if (guess === missingItem) {
         score += 10;
-        level++;
-        messageDisplay.textContent = 'Правильно! Переходим к следующему уровню.';
-    } else {
-        messageDisplay.textContent = 'Неверно, попробуйте снова!';
+        showMessage('✅ Верно!');
+      } else {
+        showMessage(`❌ Неправильно! Пропал: ${missingItem}`);
+      }
+
+      level++;
+      updateUI();
+
+      if (level > TOTAL_LEVELS) {
+        setTimeout(endGame, 1500);
+      } else {
+        setTimeout(nextLevel, 1500);
+      }
     }
-    
-    scoreDisplay.textContent = score;
-    levelDisplay.textContent = level;
-    setTimeout(startGame, 1500);
-}
+
+    function updateUI() {
+      levelDisplay.textContent = Math.min(level, TOTAL_LEVELS);
+      scoreDisplay.textContent = score;
+    }
+
+    function showMessage(text) {
+      message.textContent = text;
+    }
+
+    function endGame() {
+      showMessage(`🎉 Игра окончена! Ваш счёт: ${score} из ${TOTAL_LEVELS * 10}`);
+      startButton.textContent = 'Играть снова';
+      startButton.style.display = 'inline-block';
+    }
+
+    startButton.onclick = startGame;

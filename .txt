@@ -252,3 +252,7 @@
       { pairs: 6, time: 40, grid: 4, theme: "Weather events", description: "Найди одинаковые погодные явления!", images: ['lightning.png', 'tornado.png','hot.png', 'frost.png','hail.png', 'wind.png'] },
       { pairs: 6, time: 35, grid: 4, theme: "Space", description: "Найди одинаковые космические объекты!", images: ['alien.png','saturn.png','rocket.png','meteor.png','space3.png', 'rover.png'] }
   ];
+
+  <link rel="stylesheet" href="table.css">
+
+  <script src="table.js"></script>
