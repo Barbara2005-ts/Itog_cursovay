@@ -4,23 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Потеряшки</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="table.css">
 </head>
 <body>
-  <img src="https://i.imgur.com/gh9MfNt.png" alt="Милый кот" class="animal" style="left: 10px;">
-  <div class="bubble">Привет! Найди, что пропало 🕵️‍♀️</div>
-  <h1>Потеряшки</h1>
-  <div id="scoreboard">Уровень: <span id="level">1</span> | Очки: <span id="score">0</span></div>
-  <button id="start-button">Начать игру</button>
-  <button id="rules-button">Правила</button>
-  <div id="game-board"></div>
-  <div id="message"></div>
+  <div class="animal-container" style="top:5%; left:5%; transform:rotate(-10deg)">
+    <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
+    <div class="speech-bubble">Запоминай быстрее, чем я несусь на этой машине!</div>
+  </div>
 
-  <div id="overlay"></div>
-  <div id="rules-modal">
-    <h2>Правила игры</h2>
-    <p>На экране появятся предметы. Запомни их. Один исчезнет — угадай, какой!</p>
-    <button onclick="closeRules()">Понятно!</button>
+  <div class="animal-container" style="top:5%; right:5%; transform:rotate(10deg)">
+    <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
+    <div class="speech-bubble">Взлети к вершинам своей памяти!</div>
+  </div>
+
+  <div class="animal-container" style="top:40%; left:8%; transform:rotate(-5deg)">
+    <img src="character/humster.png" alt="Хомяк" class="floating-image">
+    <div class="speech-bubble">Каждый уровень - новое колесо знаний!</div>
+  </div>
+
+  <div class="animal-container" style="bottom:12%; right:8%; transform:rotate(8deg)">
+    <img src="character/dog.png" alt="Собака" class="floating-image">
+    <div class="speech-bubble">Тренируй память - она никогда тебя не подведет!</div>
+  </div>
+
+  <div class="animal-container" style="bottom:12%; left:8%; transform:rotate(-8deg)">
+    <img src="character/enot.png" alt="Енот" class="floating-image">
+    <div class="speech-bubble">Я найду все потеряшки, а ты сможешь?</div>
+  </div>
+
+  <div class="animal-container" style="top:40%; right:8%; transform:rotate(5deg)">
+    <img src="character/rabbit.png" alt="Кролик" class="floating-image">
+    <div class="speech-bubble">Прыгай выше своей забывчивости!</div>
+  </div>
+
+  <div class="content-wrapper">
+    <h1>Потеряшки</h1>
+    <div class="info-item"><span class="info-label">Уровень:</span><span id="level" class="info-value">1</span></div>
+    <div class="info-item"><span class="info-label">Очки:</span><span id="score" class="info-value">0</span></div>
+    <div class="info-item"><span class="info-label">Таймер:</span><span id="timer" class="info-value">5</span></div>
+    <div id="game-board"></div>
+    <div id="message"></div>
+
+    <div id="overlay" class="overlay">
+      <img src="character/rabbit.png" alt="Персонаж приветствует" class="overlay-image">
+      <p class="intro-text">Добро пожаловать в игру! Ты готов?</p>
+      <button id="start-button">Всегда готов!</button>
+    </div>
+    
+    <div id="next-overlay" class="overlay" style="display:none;">
+      <div class="overlay-content">
+        <img src="character/humster.png" alt="Персонаж приветствует" class="overlay-image">
+        <p class="intro-text">Продолжаем?</p>
+        <button id="next-button">Следующий уровень</button>
+      </div>
+    </div>
+
+    <div id="final-overlay" class="overlay" style="display:none;">
+      <div class="overlay-content">
+        <img src="character/dog.png" alt="Персонаж приветствует" class="overlay-image">
+        <p class="intro-text">Поздравляем! Игра завершена.</p>
+        <p id="final-score" class="final-score-text"></p>
+        <button id="restart-button">Начать заново</button>
+      </div>
+    </div>
   </div>
 
   <script src="table.js"></script>

@@ -1,0 +1,645 @@
+/* Основные стили */
+:root {
+    --primary-color: #1a0633;
+    --secondary-color: #7e57c2;
+    --accent-color: #ffcc00;
+    --text-light: #ffffff;
+    --text-dark: #333333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: var(--primary-color);
+    background-image: 
+        radial-gradient(circle at center, 
+            rgba(138, 43, 226, 0.4) 0%, 
+            transparent 70%),
+        repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.05) 0px,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px,
+            transparent 10px),
+        repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.05) 0px,
+            rgba(255, 255, 255, 0.05) 1px,
+            transparent 1px,
+            transparent 10px);
+    background-size: 
+        100% 100%,
+        20px 20px,
+        20px 20px;
+    overflow: hidden;
+    position: relative;
+    color: var(--text-light);
+}
+
+.slider-wrapper {
+    position: relative;
+    text-align: center;
+    background-color: rgba(26, 6, 51, 0.7);
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(126, 87, 194, 0.5);
+    z-index: 1;
+    width: 1200px;
+    height: 700px;
+    margin: 20px auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.slider {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: calc(700px - 40px); /* Вычитаем padding wrapper */
+}
+
+.slide {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Общие элементы слайдов */
+.section-title {
+    font-size: 1.8rem;
+    margin: 10px 0;
+    color: var(--accent-color);
+    text-shadow: 0 2px 6px rgba(255, 204, 0, 0.3);
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+}
+.intro-text {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Стили для карточек персонажей (1 слайд) */
+.character-showcase {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    height: 500px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.character-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.character-img {
+    width: 100%;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    transition: transform 0.3s ease;
+}
+
+.character-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0;
+    color: var(--accent-color);
+    text-align: center;
+}
+
+.character-bio {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 6, 51, 0.9);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    text-align: center;
+    border-radius: 15px;
+}
+
+.slide:first-child .slider-controls {
+    margin-top: 5px; /* Особо маленький отступ для первого слайда */
+}
+
+/* Анимация при наведении */
+.character-card:hover .character-bio {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.character-card:hover .character-img {
+    transform: scale(1.05);
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+    .character-card {
+        height: 180px;
+    }
+    
+    .character-bio {
+        font-size: 0.85rem;
+        padding: 15px;
+    }
+    
+    .character-img {
+        height: 120px;
+    }
+}
+
+/* Стили для карточек игр (2 слайд) */
+.slide:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.games-showcase {
+    flex: 1; /* Занимает все доступное пространство */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 10px;
+    margin-bottom: 0; /* Убрал отступ снизу */
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 15px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.game-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.game-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.game-desc {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.4;
+}
+
+ 
+
+/* Кнопки на втором слайде */
+.slide:nth-child(2) .slider-controls button {
+    background-color: rgba(255, 204, 0, 0.8);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 15px;
+    box-shadow: none;
+    transition: all 0.2s ease;
+}
+
+.slide:nth-child(2) .slider-controls button:hover {
+    background-color: rgba(255, 204, 0, 0.9);
+    transform: none;
+}
+
+/* Стили для третьего слайда */
+.welcome-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 100%;
+}
+
+.welcome-message {
+    width: 100%;
+    max-width: 700px;
+    margin-bottom: 30px;
+}
+
+.message-bubble {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 204, 0, 0.3);
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.benefit-card {
+    background: rgba(126, 87, 194, 0.2);
+    border-radius: 15px;
+    padding: 20px 15px;
+    text-align: center;
+}
+
+.benefit-icon {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.auth-btn {
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.login-btn {
+    background: linear-gradient(135deg, #ffcc00, #ff9900);
+    color: #1a0633;
+}
+
+.register-btn {
+    background: linear-gradient(135deg, #7e57c2, #5e35b1);
+    color: white;
+}
+
+.slide:last-child .slider-controls {
+    margin-top: 15px; /* Чуть больше отступ, так как там меньше контента */
+}
+
+/* Исправленные стили для третьего слайда */
+.slide:nth-child(3) {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+}
+
+.slide:nth-child(3) .welcome-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.slide:nth-child(3) .slider-controls {
+    margin-top: auto; /* Прижимаем кнопки к низу */
+    padding-top: 20px;
+}
+
+/* Убедимся, что скрытые слайды действительно скрыты */
+.slide.hidden {
+    display: none !important;
+}
+
+
+/* Кнопки слайдера */
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px; /* Уменьшил отступ сверху */
+    padding: 5px 0; /* Уменьшил внутренние отступы */
+    position: relative;
+    z-index: 10;
+}
+
+.slider-controls button {
+    background-color: var(--accent-color);
+    border: 2px solid #ffaa00;
+    border-radius: 12px;
+    padding: 8px 20px; /* Слегка уменьшил padding */
+    font-size: 16px; /* Немного уменьшил размер шрифта */
+    font-weight: bold;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Уменьшил тень */
+    min-width: 100px; /* Слегка уменьшил минимальную ширину */
+}
+
+/* Модальные окна */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(26, 6, 51, 0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 15px;
+}
+
+.modal-content {
+    background: linear-gradient(145deg, #3e1468, #1a0633);
+    border-radius: 15px;
+    width: 95%;
+    max-width: 500px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 204, 0, 0.3);
+    max-height: 85vh;
+    overflow: hidden;
+}
+
+.modal-content h2 {
+    font-size: 1.3rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+}
+
+.modal-content h3 {
+    font-size: 1rem;
+    color: #66ccff;
+    margin: 15px 0 10px;
+}
+
+.modal-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.modal-content ul {
+    padding-left: 20px;
+    margin-bottom: 15px;
+}
+
+.modal-content li {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.return-button {
+    padding: 10px 25px;
+    background: linear-gradient(to right, #ffcc00, #ffaa00);
+    color: #1a0633;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Животные */
+.animal-container {
+    position: absolute;
+    z-index: 5;
+    transition: all 0.4s ease;
+}
+
+.floating-image {
+    width: 100px;
+    height: auto;
+    opacity: 0.9;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.speech-bubble {
+    position: absolute;
+    background: white;
+    color: var(--primary-color);
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+    z-index: 10;
+    max-width: 150px;
+}
+
+
+/* Животные */
+.animal-container {
+    position: absolute;
+    z-index: 5;
+    transition: all 0.4s ease;
+}
+
+.floating-image {
+    width: 180px;
+    height: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.floating-image:hover {
+    opacity: 1;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* Облачка */
+.speech-bubble {
+    position: absolute;
+    background: white;
+    color: #1a0633;
+    padding: 15px 20px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-family: 'Press Start 2P', cursive;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    z-index: 10;
+    max-width: 200px;
+    text-align: center;
+    box-shadow: 3px 3px 10px rgba(0,0,0,0.2);
+    line-height: 1.4;
+}
+
+/* Расположение облачков */
+.animal-container:nth-child(1) .speech-bubble,
+.animal-container:nth-child(3) .speech-bubble,
+.animal-container:nth-child(5) .speech-bubble {
+    left: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.animal-container:nth-child(2) .speech-bubble,
+.animal-container:nth-child(4) .speech-bubble,
+.animal-container:nth-child(6) .speech-bubble {
+    right: 110%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Хвостики облачков */
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border: 15px solid transparent;
+    top: 50%;
+    margin-top: -15px;
+}
+
+.animal-container:nth-child(1) .speech-bubble:after,
+.animal-container:nth-child(3) .speech-bubble:after,
+.animal-container:nth-child(5) .speech-bubble:after {
+    border-right-color: white;
+    right: 100%;
+    border-left: 0;
+}
+
+.animal-container:nth-child(2) .speech-bubble:after,
+.animal-container:nth-child(4) .speech-bubble:after,
+.animal-container:nth-child(6) .speech-bubble:after {
+    border-left-color: white;
+    left: 100%;
+    border-right: 0;
+}
+
+/* Цвета облачков */
+.animal-container:nth-child(1) .speech-bubble { background: #ffcc00; }
+.animal-container:nth-child(2) .speech-bubble { background: #ff6666; }
+.animal-container:nth-child(3) .speech-bubble { background: #66ccff; }
+.animal-container:nth-child(4) .speech-bubble { background: #99ff99; }
+.animal-container:nth-child(5) .speech-bubble { background: #ff99cc; }
+.animal-container:nth-child(6) .speech-bubble { background: #ccccff; }
+
+/* Анимация облачков */
+.animal-container:hover .speech-bubble {
+    opacity: 1;
+    transform: translateY(-50%) scale(1);
+}
+
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.hidden {
+    display: none;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .character-showcase {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .games-showcase {
+        grid-template-columns: 1fr;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .floating-image {
+        width: 80px;
+    }
+    
+    .animal-container:nth-child(1),
+    .animal-container:nth-child(2) {
+        top: 1%;
+    }
+    
+    .animal-container:nth-child(3),
+    .animal-container:nth-child(6) {
+        top: 25%;
+    }
+    
+    .animal-container:nth-child(4),
+    .animal-container:nth-child(5) {
+        bottom: 5%;
+    }
+}
+
+@media (max-width: 480px) {
+    .slider-wrapper {
+        padding: 10px;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .character-showcase {
+        grid-template-columns: 1fr;
+    }
+    
+    .animal-container {
+        display: none;
+    }
+}
