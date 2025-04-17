@@ -446,6 +446,87 @@ body {
     cursor: pointer;
 }
 
+/* Только для модалок входа и регистрации */
+#modalLogin.modal,
+#modalRegister.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modalLogin .modal-content,
+#modalRegister .modal-content {
+    background: linear-gradient(145deg, #f5f0ff, #e4d9ff);
+    border-radius: 24px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+#modalLogin .modal-content h2,
+#modalRegister .modal-content h2 {
+    color: #6d4ccf;
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+}
+
+#modalLogin .modal-content input,
+#modalRegister .modal-content input {
+    width: 85%;
+    padding: 0.7rem 1rem;
+    margin: 0.4rem 0;
+    border: 2px solid #d3c5f0;
+    border-radius: 16px;
+    font-size: 1rem;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
+}
+
+#modalLogin .modal-content input:focus,
+#modalRegister .modal-content input:focus {
+    border-color: #9c7cf0;
+    outline: none;
+}
+
+#modalLogin .modal-content button,
+#modalRegister .modal-content button {
+    margin-top: 1rem;
+    padding: 0.8rem 2rem;
+    background-color: #9c7cf0;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+#modalLogin .modal-content button:hover,
+#modalRegister .modal-content button:hover {
+    background-color: #7d63e0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* Животные */
 .animal-container {
     position: absolute;

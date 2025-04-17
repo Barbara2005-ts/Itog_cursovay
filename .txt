@@ -258,3 +258,9 @@
   <script src="table.js"></script>
 
   const allItems = ['🍎', '🍌', '🍇', '🍓', '🍍', '🍕', '🍔', '🍩', '🥦', '🥕', '🍪', '🍫', '🧀', '🥝', '🍒'];
+
+  Mwmori-mania12
+
+  https://supabase.com/dashboard/project/uuxlntdjcmfosskjwyhb
+
+  https://replit.com/@barbarats1245

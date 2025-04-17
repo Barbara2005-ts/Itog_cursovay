@@ -5,37 +5,39 @@
     <title>Правила игры</title>
     <link rel="stylesheet" href="rule.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
 </head>
 <body>
     <!-- Животные -->
     <div class="animal-container" style="top:5%; left:5%; transform:rotate(-10deg)">
         <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
-        <div class="speech-bubble">Газ в пол - память на максимум!</div>
+        <div class="speech-bubble">Разгоняй память на полной скорости!</div>
     </div>
     
     <div class="animal-container" style="top:5%; right:5%; transform:rotate(10deg)">
         <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
-        <div class="speech-bubble">Лети за рекордами!</div>
+        <div class="speech-bubble">Полет мысли — без турбулентности!</div>
     </div>
     
     <div class="animal-container" style="top:40%; left:8%; transform:rotate(-5deg)">
         <img src="character/humster.png" alt="Хомяк" class="floating-image">
-        <div class="speech-bubble">Щёчки = кэш памяти!</div>
+        <div class="speech-bubble">Запасай знания, как орешки!</div>
     </div>
     
     <div class="animal-container" style="bottom:12%; right:8%; transform:rotate(8deg)">
         <img src="character/dog.png" alt="Собака" class="floating-image">
-        <div class="speech-bubble">Развивай память - стань суперсыщиком!</div>
+        <div class="speech-bubble">Нюхай улики, запоминай всё!</div>
     </div>
     
     <div class="animal-container" style="bottom:12%; left:8%; transform:rotate(-8deg)">
         <img src="character/enot.png" alt="Енот" class="floating-image">
-        <div class="speech-bubble">Секреты памяти – в моих лапках!</div>
+        <div class="speech-bubble">Каждая подсказка — на вес золота!</div>
     </div>
     
     <div class="animal-container" style="top:40%; right:8%; transform:rotate(5deg)">
         <img src="character/rabbit.png" alt="Кролик" class="floating-image">
-        <div class="speech-bubble">Морковка для памяти? Да!</div>
+        <div class="speech-bubble">Скачем по уровням к победе!</div>
     </div>
 
     <div class="slider-wrapper">
@@ -248,24 +250,27 @@
         </div>
     </div>
 
+    <!-- Вход -->
     <div id="modalLogin" class="modal">
         <div class="modal-content">
-          <h2>🔐 Вход</h2>
-          <input type="text" placeholder="Имя пользователя"><br>
-          <input type="password" placeholder="Пароль"><br>
-          <button>Войти</button>
+        <h2>🔐 Вход</h2>
+        <input type="email" id="login-email" placeholder="Email"><br>
+        <input type="password" id="login-password" placeholder="Пароль"><br>
+        <button onclick="loginUser()">Войти</button>
         </div>
     </div>
-      
+    
+    <!-- Регистрация -->
     <div id="modalRegister" class="modal">
         <div class="modal-content">
-          <h2>📝 Регистрация</h2>
-          <input type="text" placeholder="Имя пользователя"><br>
-          <input type="email" placeholder="Email"><br>
-          <input type="password" placeholder="Пароль"><br>
-          <button>Зарегистрироваться</button>
+        <h2>📝 Регистрация</h2>
+        <input type="email" id="register-email" placeholder="Email"><br>
+        <input type="password" id="register-password" placeholder="Пароль"><br>
+        <button onclick="registerUser()">Зарегистрироваться</button>
         </div>
     </div>
+  
+  
 
   
 

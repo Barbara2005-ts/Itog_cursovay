@@ -39,7 +39,7 @@ h1, h2, h3 {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: pulse 3s ease-in-out infinite alternate;
+
   margin-bottom: 30px;
 }
 
@@ -56,16 +56,6 @@ h3 {
   margin-bottom: 15px;
 }
 
-@keyframes pulse {
-  0% {
-    text-shadow: 0 0 15px rgba(126, 87, 194, 0.8);
-    opacity: 0.9;
-  }
-  100% {
-    text-shadow: 0 0 30px rgba(100, 150, 255, 0.6);
-    opacity: 1;
-  }
-}
 
 /* === Инфоблок === */
 .game-info {

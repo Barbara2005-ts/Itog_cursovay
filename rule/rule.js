@@ -90,6 +90,48 @@ const modal = {
     }
 }
 
+const supabase = supabase.createClient(
+    'https://uuxlntdjcmfosskjwyhb.supabase.co',
+    'вставь_сюда_свой_ANON_KEY'
+  );
+  
+  async function registerUser() {
+    const email = document.getElementById("register-email").value;
+    const password = document.getElementById("register-password").value;
+  
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password
+    });
+  
+    if (error) {
+      alert("Ошибка регистрации: " + error.message);
+    } else {
+      alert("Регистрация успешна! Подтвердите почту.");
+      closeModal("modalRegister");
+    }
+  }
+  
+  async function loginUser() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
+  
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+  
+    if (error) {
+      alert("Ошибка входа: " + error.message);
+    } else {
+      alert("Вход выполнен!");
+      closeModal("modalLogin");
+      // можно запустить игру или перейти к следующему слайду
+    }
+  }
+  
+  
+
     // Анимация пузырей у животных
     const animals = {
         init: function () {
