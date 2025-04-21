@@ -250,25 +250,28 @@
         </div>
     </div>
 
-    <!-- Вход -->
-    <div id="modalLogin" class="modal">
-        <div class="modal-content">
-        <h2>🔐 Вход</h2>
-        <input type="email" id="login-email" placeholder="Email"><br>
-        <input type="password" id="login-password" placeholder="Пароль"><br>
-        <button onclick="loginUser()">Войти</button>
-        </div>
+   <!-- В модальных окнах: -->
+<!-- Модалка регистрации -->
+<div id="modalRegister" class="modal">
+    <div class="modal-content">
+      <h2>📝 Регистрация</h2>
+      <input type="email" id="register-email" placeholder="Email" required>
+      <input type="password" id="register-password" placeholder="Пароль" required>
+      <button onclick="registerUser()">Зарегистрироваться</button>
+      <button onclick="closeAllModals()">Отмена</button>
     </div>
-    
-    <!-- Регистрация -->
-    <div id="modalRegister" class="modal">
-        <div class="modal-content">
-        <h2>📝 Регистрация</h2>
-        <input type="email" id="register-email" placeholder="Email"><br>
-        <input type="password" id="register-password" placeholder="Пароль"><br>
-        <button onclick="registerUser()">Зарегистрироваться</button>
-        </div>
+  </div>
+  
+  <!-- Модалка входа -->
+  <div id="modalLogin" class="modal">
+    <div class="modal-content">
+      <h2>🔐 Вход</h2>
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Пароль" required>
+      <button onclick="loginUser()">Войти</button>
+      <button onclick="closeAllModals()">Отмена</button>
     </div>
+  </div>
   
   
 
