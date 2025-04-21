@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Аккаунт | Memory Mania</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="account.css">
+</head>
+<body>
+
+    
+    <!-- Животные -->
+    <div class="animal-container" style="top:5%; left:5%; transform:rotate(-10deg)">
+        <img src="character/catcar.png" alt="Кот в машине" class="floating-image">
+        <div class="speech-bubble">Не бойся разгоняться — твои идеи могут привести к невероятным результатам!</div>
+    </div>
+    
+    <div class="animal-container" style="top:5%; right:5%; transform:rotate(10deg)">
+        <img src="character/catplane.png" alt="Кот в самолете" class="floating-image">
+        <div class="speech-bubble">Взлетай выше, мечтай шире — не бойся высоты!</div>
+    </div>
+    
+    <div class="animal-container" style="top:40%; left:8%; transform:rotate(-5deg)">
+        <img src="character/humster.png" alt="Хомяк" class="floating-image">
+        <div class="speech-bubble">Каждое знание — это семечко, из которого вырастет твой успех!</div>
+    </div>
+    
+    <div class="animal-container" style="bottom:12%; right:8%; transform:rotate(8deg)">
+        <img src="character/dog.png" alt="Собака" class="floating-image">
+        <div class="speech-bubble">Слушай свой инстинкт — он приведет тебя к самым важным открытиям!</div>
+    </div>
+    
+    <div class="animal-container" style="bottom:12%; left:8%; transform:rotate(-8deg)">
+        <img src="character/enot.png" alt="Енот" class="floating-image">
+        <div class="speech-bubble">Будь ловким и находчивым — каждая задача может стать увлекательным приключением!</div>
+    </div>
+    
+    <div class="animal-container" style="top:40%; right:8%; transform:rotate(5deg)">
+        <img src="character/rabbit.png" alt="Кролик" class="floating-image">
+        <div class="speech-bubble">Не бойся прыгать в неизвестность — впереди тебя ждут новые горизонты!</div>
+    </div>
+
+    <!-- Контейнер аккаунта -->
+    <div class="account-wrapper">
+        <h1>Твой аккаунт</h1>
+        <p><strong>Имя пользователя:</strong> <span id="user-name">Загрузка...</span></p>
+
+        <!-- Аватар -->
+        <div class="avatar-section">
+            <h2>Аватар</h2>
+            <img id="current-avatar" src="avatars/user.png" alt="Аватар" class="avatar-img">
+            <div class="avatar-options">
+                <img src="avatars/girl.png" onclick="changeAvatar(this.src)" class="avatar-option">
+                <img src="avatars/boy.png" onclick="changeAvatar(this.src)" class="avatar-option">
+                <img src="avatars/cat.png" onclick="changeAvatar(this.src)" class="avatar-option">
+            </div>
+        </div>
+
+        <div class="achievements-section">
+            <h2>Достижения</h2>
+            <ul class="achievement-list">
+                <li>🏅 Начинающий искатель — Пройдено 5 уровней подряд в любой игре</li>
+                <li>🌟 Мастер внимательности — Правильный ответ на 10 уровней подряд</li>
+                <li>💡 Освежитель памяти — Пройдено 3 уровня без единой ошибки</li>
+                <li>⚡ Молниеносный ответ — Все предметы угаданы за меньше чем 10 секунд в игре парочки</li>
+                <li>🥇 Легенда игры — Все уровни пройдены на высший балл в игре потеряшки</li>
+                <li>🎉 Марафонец — Прошло 100 уровней за все время</li>
+                <li>🧩 Визуальный гений — Пройдено 5 уровней без ошибок</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            // загрузка аватара
+            const savedAvatar = localStorage.getItem('selectedAvatar');
+            if (savedAvatar) {
+                document.getElementById('current-avatar').src = savedAvatar;
+            }
+    
+            // загрузка имени пользователя
+            const username = localStorage.getItem('username');
+            if (username) {
+                document.getElementById('user-name').textContent = username;
+            } else {
+                document.getElementById('user-name').textContent = "Гость";
+            }
+        };
+
+    
+        function changeAvatar(src) {
+            document.getElementById('current-avatar').src = src;
+            localStorage.setItem('selectedAvatar', src);
+            alert("Аватар обновлён!");
+        }
+    </script>
+    
+    
+
+</body>
+</html>

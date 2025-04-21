@@ -255,12 +255,17 @@
 <div id="modalRegister" class="modal">
     <div class="modal-content">
       <h2>📝 Регистрация</h2>
+      
+      <!-- Поле для имени пользователя -->
+      <input type="text" id="username" name="username" placeholder="Имя пользователя" required>
+      
       <input type="email" id="register-email" placeholder="Email" required>
       <input type="password" id="register-password" placeholder="Пароль" required>
+      
       <button onclick="registerUser()">Зарегистрироваться</button>
-      <button onclick="closeAllModals()">Отмена</button>
     </div>
   </div>
+  
   
   <!-- Модалка входа -->
   <div id="modalLogin" class="modal">
@@ -269,7 +274,6 @@
       <input type="email" id="login-email" placeholder="Email" required>
       <input type="password" id="login-password" placeholder="Пароль" required>
       <button onclick="loginUser()">Войти</button>
-      <button onclick="closeAllModals()">Отмена</button>
     </div>
   </div>
   

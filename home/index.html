@@ -39,24 +39,16 @@
         <div class="speech-bubble">Морковка для памяти? Да!</div>
     </div>
 
-    <!-- Основной контент -->
-    <div class="content-wrapper">
+     <!-- Основной контент -->
+     <div class="content-wrapper">
         <h1>Memory Mania</h1>
 
         <div class="button-container">
-            <button class="button" onclick="startGame()">Играть</button>
-            <button class="button" onclick="showRules()">Правила игры</button>
+            <button class="button" id="play-btn" onclick="window.location.href='../choose-game/choose-game.html'">Играть</button>
+            <button class="button" onclick="window.location.href='../rule/rule.html'">Правила игры</button>
+            <button class="button" id="account-btn" onclick="window.location.href='../account/account.html'">Аккаунт</button>
         </div>
     </div>
 
-    <script>
-        function startGame() {
-            window.location.href = "choose-game.html";
-        }
-
-        function showRules() {
-            window.location.href = "rule.html";
-        }
-    </script>
 </body>
 </html>

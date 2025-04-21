@@ -80,45 +80,56 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Supabase (замени на свои ключи в .env или через сервер)
     const supabaseClient = supabase.createClient(
-        'https://uuxlntdjcmfosskjwyhb.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV1eGxudGRqY21mb3Nza2p3eWhiIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NDkyMDgxOCwiZXhwIjoyMDYwNDk2ODE4fQ.PhUHwUcHqDu1VFX9O-kuilvFF26XSu1ITxGL1QDNg_s'
-    );
+        'https://rjhqvhwlwdhpbrtytxxp.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqaHF2aHdsd2RocGJydHl0eHhwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NTI2OTA2MywiZXhwIjoyMDYwODQ1MDYzfQ.G8dLZZu9b7FHOZmwFDun4tN50oXtPt2NxHspnTo6xT0')
 
-    async function registerUser() {
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-
-        try {
-            const { data, error } = await supabaseClient.auth.signUp({ email, password });
-            if (error) throw error;
-            alert('Проверьте вашу почту для подтверждения!');
-            closeModal('modalRegister');
-            nextSlide();
-        } catch (error) {
-            alert('Ошибка регистрации: ' + error.message);
+        async function registerUser() {
+            const email = document.getElementById('register-email').value;
+            const password = document.getElementById('register-password').value;
+            const username = document.getElementById('username').value;
+        
+            if (!username) {
+                alert('Пожалуйста, введите имя пользователя!');
+                return;
+            }
+        
+            try {
+                // Проверка на наличие пользователя с таким email
+                const { data, error: userError } = await supabaseClient
+                    .from('users')
+                    .select('*')
+                    .eq('email', email)
+                    .single();  // Ожидаем только один результат
+        
+                if (userError && userError.code !== 'PGRST100') {
+                    throw userError;  // Ошибка при проверке email
+                }
+        
+                if (data) {
+                    alert('Пользователь с таким email уже существует!');
+                    return;
+                }
+        
+                // Регистрация пользователя
+                const { error } = await supabaseClient.auth.signUp({ email, password });
+        
+                if (error) throw error;
+        
+                // Сохранение имени пользователя в localStorage
+                localStorage.setItem('username', username);
+        
+                alert('Проверьте вашу почту для подтверждения!');
+                closeModal('modalRegister');
+                nextSlide();
+                window.location.href = '../account/account.html';
+            } catch (error) {
+                console.error('Ошибка регистрации:', error);  // Логирование ошибки
+                alert('Ошибка регистрации: ' + error.message);
+            }
         }
-    }
-
-    async function loginUser() {
-        const email = document.getElementById('login-email').value;
-        const password = document.getElementById('login-password').value;
-
-        try {
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-            if (error) throw error;
-            alert('Добро пожаловать, ' + data.user.email + '!');
-            closeModal('modalLogin');
-            nextSlide();
-        } catch (error) {
-            alert('Ошибка входа: ' + error.message);
-        }
-    }
-
-    function closeAllModals() {
-        document.querySelectorAll('.modal').forEach(modal => {
-            modal.style.display = 'none';
-        });
-    }
+        
+        
+    
 
     const animals = {
         init: function () {

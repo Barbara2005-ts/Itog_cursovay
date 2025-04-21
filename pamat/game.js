@@ -25,7 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
         finalTimeScore: document.getElementById('finalTimeScore'),
         timeOverRestart: document.getElementById('timeOverRestart'),
         introOverlay: document.getElementById('introOverlay'), // Оверлей
-        introContent: document.querySelector('.intro-content') // Контент оверлея
+        introContent: document.querySelector('.intro-content'), // Контент оверлея
+        startGameBtn: document.getElementById('startGameBtn'),
     };
   
     // Проверка существования элементов
@@ -377,11 +378,12 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Инициализация игры
     function initGame() {
-      gameState.currentLevel = 0;
-      gameState.score = 0;
-      if (elements.finalScreen) elements.finalScreen.style.display = 'none';
-      if (elements.timeOverOverlay) elements.timeOverOverlay.classList.add('hidden');
-      launchGameLevel(gameState.currentLevel);
+        gameState.currentLevel = 0;
+        gameState.score = 0;
+        if (elements.finalScreen) elements.finalScreen.style.display = 'none';
+        if (elements.timeOverOverlay) elements.timeOverOverlay.classList.add('hidden');
+        if (elements.introOverlay) elements.introOverlay.classList.add('hidden'); // Добавьте эту строку
+        launchGameLevel(gameState.currentLevel);
     }
   
     // Обработчики событий
@@ -389,8 +391,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (elements.nextLevelBtn) elements.nextLevelBtn.addEventListener('click', nextLevel);
     if (elements.playAgain) elements.playAgain.addEventListener('click', initGame);
     if (elements.timeOverRestart) elements.timeOverRestart.addEventListener('click', initGame);
-    
-    // Запуск игры
-    initGame();
-  });
+    if (elements.startGameBtn) {
+        elements.startGameBtn.addEventListener('click', () => {
+            if (elements.introOverlay) {
+                elements.introOverlay.classList.add('hidden');
+            }
+            initGame();
+        });
+    };
+});  
   
