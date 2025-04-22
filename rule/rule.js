@@ -81,80 +81,63 @@ document.addEventListener('DOMContentLoaded', function () {
     // Supabase (замени на свои ключи в .env или через сервер)
     const supabaseClient = supabase.createClient(
         'https://rjhqvhwlwdhpbrtytxxp.supabase.co',
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqaHF2aHdsd2RocGJydHl0eHhwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NTI2OTA2MywiZXhwIjoyMDYwODQ1MDYzfQ.G8dLZZu9b7FHOZmwFDun4tN50oXtPt2NxHspnTo6xT0')
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqaHF2aHdsd2RocGJydHl0eHhwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NTI2OTA2MywiZXhwIjoyMDYwODQ1MDYzfQ.G8dLZZu9b7FHOZmwFDun4tN50oXtPt2NxHspnTo6xT0'
+    );
 
-        async function registerUser() {
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const username = document.getElementById('username').value;
-        
-            if (!username) {
-                alert('Пожалуйста, введите имя пользователя!');
-                return;
-            }
-        
-            try {
-                // Проверка на наличие пользователя с таким email
-                const { data, error: userError } = await supabaseClient
-                    .from('users')
-                    .select('*')
-                    .eq('email', email)
-                    .single();  // Ожидаем только один результат
-        
-                if (userError && userError.code !== 'PGRST100') {
-                    throw userError;  // Ошибка при проверке email
-                }
-        
-                if (data) {
-                    alert('Пользователь с таким email уже существует!');
-                    return;
-                }
-        
-                // Регистрация пользователя
-                const { error } = await supabaseClient.auth.signUp({ email, password });
-        
-                if (error) throw error;
-        
-                // Сохранение имени пользователя в localStorage
-                localStorage.setItem('username', username);
-        
-                alert('Проверьте вашу почту для подтверждения!');
-                closeModal('modalRegister');
-                nextSlide();
-                window.location.href = '../account/account.html';
-            } catch (error) {
-                console.error('Ошибка регистрации:', error);  // Логирование ошибки
-                alert('Ошибка регистрации: ' + error.message);
-            }
-        }
-        
-        
+    // Функция регистрации
+    async function registerUser() {
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const username = document.getElementById('username').value;
     
-
-    const animals = {
-        init: function () {
-            document.querySelectorAll('.animal-container').forEach(container => {
-                const bubble = container.querySelector('.speech-bubble');
-                container.addEventListener('mouseenter', () => {
-                    if (bubble) {
-                        bubble.style.opacity = '1';
-                        bubble.style.transform = 'scale(1)';
-                    }
-                });
-                container.addEventListener('mouseleave', () => {
-                    if (bubble) {
-                        bubble.style.opacity = '0';
-                        bubble.style.transform = 'scale(0.9)';
-                    }
-                });
-            });
+        if (!username) {
+            alert('Пожалуйста, введите имя пользователя!');
+            return;
         }
-    };
+    
+        try {
+            // 1. Регистрируем в Supabase
+            const { data: signUpData, error: signUpError } = await supabaseClient.auth.signUp({
+                email,
+                password
+            });
+    
+            if (signUpError) throw signUpError;
+    
+            const user = signUpData.user;
+            if (!user) throw new Error("Пользователь не создан");
+    
+            // 2. Добавляем в таблицу users (id из auth)
+            const { error: insertError } = await supabaseClient
+                .from('users')
+                .insert([
+                    {
+                        id: user.id,      // важный момент!
+                        email: email,
+                        username: username
+                    }
+                ]);
+    
+            if (insertError) throw insertError;
+    
+            // 3. Успех
+            localStorage.setItem('username', username);
+            alert('Проверьте вашу почту для подтверждения!');
+            closeModal('modalRegister');
+            nextSlide();
+            window.location.href = '../account/account.html';
+    
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
+            alert('Ошибка регистрации: ' + error.message);
+        }
+    }
+    
+    
 
     // Инициализация всех компонентов
     slider.init();
     modal.init();
-    animals.init();
 
     // Глобальные функции
     window.openModal = modal.open;
@@ -162,5 +145,4 @@ document.addEventListener('DOMContentLoaded', function () {
     window.nextSlide = slider.nextSlide.bind(slider);
     window.prevSlide = slider.prevSlide.bind(slider);
     window.registerUser = registerUser;
-    window.loginUser = loginUser;
 });

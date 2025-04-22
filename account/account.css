@@ -7,25 +7,10 @@ body {
     margin: 0;
     background-color: #1a0633;
     background-image: 
-        radial-gradient(circle at center, 
-            rgba(138, 43, 226, 0.4) 0%, 
-            transparent 70%),
-        repeating-linear-gradient(
-            45deg,
-            rgba(255, 255, 255, 0.05) 0px,
-            rgba(255, 255, 255, 0.05) 1px,
-            transparent 1px,
-            transparent 10px),
-        repeating-linear-gradient(
-            -45deg,
-            rgba(255, 255, 255, 0.05) 0px,
-            rgba(255, 255, 255, 0.05) 1px,
-            transparent 1px,
-            transparent 10px);
-    background-size: 
-        100% 100%,
-        20px 20px,
-        20px 20px;
+        radial-gradient(circle at center, rgba(138, 43, 226, 0.4) 0%, transparent 70%),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 1px, transparent 1px, transparent 10px),
+        repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.05) 0px, rgba(255, 255, 255, 0.05) 1px, transparent 1px, transparent 10px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
     overflow: hidden;
     position: relative;
 }
@@ -40,15 +25,15 @@ body {
     box-shadow: 0 0 30px rgba(126, 87, 194, 0.5);
 }
 
-h1{
+h1 {
     font-family: 'Press Start 2P', cursive;
     font-size: 60px;
     text-transform: uppercase;
     letter-spacing: 3px;
-    background: linear-gradient(90deg, #9c7bff, #7e57c2); /* Градиент для текста */
-    -webkit-background-clip: text; /* Для старых браузеров */
-    background-clip: text; /* Для новых браузеров */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Для освещения текста */
+    background: linear-gradient(90deg, #9c7bff, #7e57c2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     animation: pulse 3s ease-in-out infinite alternate;
     margin-bottom: 30px;
     color: #000000;
@@ -61,9 +46,7 @@ h2 {
     text-transform: uppercase;
     letter-spacing: 4px;
     color: #fff;
-    text-shadow: 
-        0 0 15px rgba(126, 87, 194, 0.8),
-        0 0 30px rgba(126, 87, 194, 0.4);
+    text-shadow: 0 0 15px rgba(126, 87, 194, 0.8), 0 0 30px rgba(126, 87, 194, 0.4);
     margin-bottom: 40px;
     background: linear-gradient(90deg, #9c7bff, #7e57c2);
     -webkit-background-clip: text;
@@ -71,7 +54,7 @@ h2 {
     padding: 0 30px;
 }
 
-p{
+p {
     font-family: 'Press Start 2P', cursive;
     color: #1a0633;
 }
@@ -113,22 +96,42 @@ p{
 }
 
 .achievement-list {
-    list-style: none;
+    list-style: none; /* убрали маркеры */
     padding: 0;
     font-size: 14px;
-    color: #555;
+    color: #1a0633;
+    font-family: 'Press Start 2P', cursive;
+    text-align: left;
 }
 
 .achievement-list li {
     margin: 10px 0;
+    padding-left: 20px;
+    position: relative;
 }
-
 
 /* Животные */
 .animal-container {
     position: absolute;
     z-index: 5;
     transition: all 0.4s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.animal-container:nth-child(1) { animation-delay: 0.2s; }
+.animal-container:nth-child(2) { animation-delay: 0.4s; }
+.animal-container:nth-child(3) { animation-delay: 0.6s; }
+.animal-container:nth-child(4) { animation-delay: 0.8s; }
+.animal-container:nth-child(5) { animation-delay: 1s; }
+.animal-container:nth-child(6) { animation-delay: 1.2s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .floating-image {
@@ -136,7 +139,7 @@ p{
     height: auto;
     opacity: 0.9;
     filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
-    transition: all 0.3s ease;
+    transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
     cursor: pointer;
 }
 
@@ -149,7 +152,6 @@ p{
 /* Облачка */
 .speech-bubble {
     position: absolute;
-    background: white;
     color: #1a0633;
     padding: 15px 20px;
     border-radius: 20px;
@@ -165,24 +167,23 @@ p{
     line-height: 1.4;
 }
 
-/* Расположение облачков */
-.animal-container:nth-child(1) .speech-bubble,
-.animal-container:nth-child(3) .speech-bubble,
-.animal-container:nth-child(5) .speech-bubble {
+.animal-container:hover .speech-bubble {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.animal-container:nth-child(odd) .speech-bubble {
     left: 110%;
     top: 50%;
     transform: translateY(-50%);
 }
 
-.animal-container:nth-child(2) .speech-bubble,
-.animal-container:nth-child(4) .speech-bubble,
-.animal-container:nth-child(6) .speech-bubble {
+.animal-container:nth-child(even) .speech-bubble {
     right: 110%;
     top: 50%;
     transform: translateY(-50%);
 }
 
-/* Хвостики облачков */
 .speech-bubble:after {
     content: '';
     position: absolute;
@@ -193,17 +194,13 @@ p{
     margin-top: -15px;
 }
 
-.animal-container:nth-child(1) .speech-bubble:after,
-.animal-container:nth-child(3) .speech-bubble:after,
-.animal-container:nth-child(5) .speech-bubble:after {
+.animal-container:nth-child(odd) .speech-bubble:after {
     border-right-color: white;
     right: 100%;
     border-left: 0;
 }
 
-.animal-container:nth-child(2) .speech-bubble:after,
-.animal-container:nth-child(4) .speech-bubble:after,
-.animal-container:nth-child(6) .speech-bubble:after {
+.animal-container:nth-child(even) .speech-bubble:after {
     border-left-color: white;
     left: 100%;
     border-right: 0;
@@ -217,9 +214,40 @@ p{
 .animal-container:nth-child(5) .speech-bubble { background: #ff99cc; }
 .animal-container:nth-child(6) .speech-bubble { background: #ccccff; }
 
-/* Анимация облачков */
-.animal-container:hover .speech-bubble {
-    opacity: 1;
-    transform: translateY(-50%) scale(1);
-}
+/* Адаптация */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 36px;
+    }
 
+    h2 {
+        font-size: 16px;
+        padding: 0 15px;
+    }
+
+    .floating-image {
+        width: 120px;
+    }
+
+    .speech-bubble {
+        font-size: 0.75rem;
+        max-width: 150px;
+    }
+
+    .avatar-img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    
+
+    .avatar-option {
+        width: 50px;
+        height: 50px;
+    }
+
+    .achievement-list {
+        font-size: 12px;
+    }
+}

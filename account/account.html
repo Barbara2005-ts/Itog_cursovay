@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="account.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/umd/supabase.min.js"></script>
+
 </head>
 <body>
 
@@ -57,28 +59,33 @@
             </div>
         </div>
 
-        <div class="achievements-section">
-            <h2>Достижения</h2>
-            <ul class="achievement-list">
-                <li>🏅 Начинающий искатель — Пройдено 5 уровней подряд в любой игре</li>
-                <li>🌟 Мастер внимательности — Правильный ответ на 10 уровней подряд</li>
-                <li>💡 Освежитель памяти — Пройдено 3 уровня без единой ошибки</li>
-                <li>⚡ Молниеносный ответ — Все предметы угаданы за меньше чем 10 секунд в игре парочки</li>
-                <li>🥇 Легенда игры — Все уровни пройдены на высший балл в игре потеряшки</li>
-                <li>🎉 Марафонец — Прошло 100 уровней за все время</li>
-                <li>🧩 Визуальный гений — Пройдено 5 уровней без ошибок</li>
+        <div class="stats-section">
+            <h2>Статистика</h2>
+            <ul class="stats-list">
+                <p><strong>Общие очки:</strong> <span id="total-points">0</span></p>
+                <p><strong>Всего уровней пройдено:</strong> <span id="total-levels">0</span></p>
+            </ul>
+        
+            <h2>Игры</h2>
+            <ul class="game-stats">
+                <p>🎨 Цветные Вспышки — <span id="flash-points">0</span> очков, <span id="flash-levels">0</span> уровней</p>
+                <p>🔍 Потеряшки — <span id="lost-points">0</span> очков, <span id="lost-levels">0</span> уровней</p>
+                <p>🧠 Парочки — <span id="pairs-points">0</span> очков, <span id="pairs-levels">0</span> уровней</p>
             </ul>
         </div>
+        
     </div>
 
     <script>
-        window.onload = function () {
+        const supabase = supabase.createClient('https://rjhqvhwlwdhpbrtytxxp.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqaHF2aHdsd2RocGJydHl0eHhwIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0NTI2OTA2MywiZXhwIjoyMDYwODQ1MDYzfQ.G8dLZZu9b7FHOZmwFDun4tN50oXtPt2NxHspnTo6xT0');
+
+        window.onload = async function () {
             // загрузка аватара
             const savedAvatar = localStorage.getItem('selectedAvatar');
             if (savedAvatar) {
                 document.getElementById('current-avatar').src = savedAvatar;
             }
-    
+
             // загрузка имени пользователя
             const username = localStorage.getItem('username');
             if (username) {
@@ -86,15 +93,69 @@
             } else {
                 document.getElementById('user-name').textContent = "Гость";
             }
+
+            // загрузка статистики
+            const { data, error, count } = await supabase
+                .from('stats')
+                .select('*')
+                .eq('user_id', supabase.auth.user().id)
+                .limit(1); // Ограничиваем результат одной строкой
+
+            if (error) {
+                console.error('Ошибка при загрузке статистики:', error);
+                return;
+            }
+
+            if (data.length === 0) {
+                // Если данных нет, создаём новые для пользователя
+                const { data: newStats, error: insertError } = await supabase
+                    .from('stats')
+                    .insert([
+                        {
+                            user_id: supabase.auth.user().id,
+                            total_points: 0,
+                            total_levels: 0,
+                            flash_points: 0,
+                            flash_levels: 0,
+                            lost_points: 0,
+                            lost_levels: 0,
+                            pairs_points: 0,
+                            pairs_levels: 0
+                        }
+                    ]);
+
+                if (insertError) {
+                    console.error('Ошибка при добавлении данных:', insertError);
+                } else {
+                    console.log('Данные пользователя добавлены!');
+                    const userStats = newStats[0];
+                    updateStats(userStats);
+                }
+            } else {
+                // Если данные уже есть, обновляем интерфейс
+                const userStats = data[0];  // Получаем первую запись
+                updateStats(userStats);
+            }
         };
 
-    
-        function changeAvatar(src) {
-            document.getElementById('current-avatar').src = src;
-            localStorage.setItem('selectedAvatar', src);
-            alert("Аватар обновлён!");
+        // Функция для обновления статистики на странице
+        function updateStats(userStats) {
+            document.getElementById('total-points').textContent = userStats.total_points;
+            document.getElementById('total-levels').textContent = userStats.total_levels;
+
+            document.getElementById('flash-points').textContent = userStats.flash_points;
+            document.getElementById('flash-levels').textContent = userStats.flash_levels;
+
+            document.getElementById('lost-points').textContent = userStats.lost_points;
+            document.getElementById('lost-levels').textContent = userStats.lost_levels;
+
+            document.getElementById('pairs-points').textContent = userStats.pairs_points;
+            document.getElementById('pairs-levels').textContent = userStats.pairs_levels;
         }
+
+
     </script>
+    
     
     
 
