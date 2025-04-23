@@ -347,3 +347,147 @@ button:active {
   justify-content: center;
   margin-top: 10px;
 }
+
+/* Медиазапрос для мобильных устройств (экран шириной до 768px) */
+@media (max-width: 768px) {
+  body {
+    padding: 10px;
+    background-image: radial-gradient(circle at center, rgba(138, 43, 226, 0.3) 0%, transparent 70%);
+  }
+
+  .content-wrapper {
+    padding: 20px;
+    max-width: 100%;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(126, 87, 194, 0.5);
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .info-item {
+    font-size: 0.8rem;
+  }
+
+  .animal-container {
+    position: absolute;
+    z-index: 5;
+    transition: all 0.4s ease;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  .floating-image {
+    width: 150px;
+    height: auto;
+    opacity: 0.9;
+  }
+
+  .speech-bubble {
+    font-size: 0.9rem;
+    padding: 10px;
+    max-width: 160px;
+  }
+
+  #game-board {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .guess-button {
+    width: 80%;
+    font-size: 0.9rem;
+    padding: 12px;
+  }
+
+  .guess-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  #message {
+    min-height: 40px;
+  }
+
+  #overlay {
+    width: 90%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .overlay-image {
+    width: 150px;
+    margin-bottom: 20px;
+  }
+
+  .intro-text {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+}
+
+/* Медиазапрос для очень маленьких экранов (например, до 480px) */
+@media (max-width: 480px) {
+  body {
+    padding: 5px;
+  }
+
+  .content-wrapper {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .info-item {
+    font-size: 0.7rem;
+  }
+
+  .animal-container {
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%) rotate(0deg);
+  }
+
+  .floating-image {
+    width: 120px;
+  }
+
+  .speech-bubble {
+    font-size: 0.8rem;
+    padding: 8px;
+    max-width: 130px;
+  }
+
+  .guess-button {
+    width: 90%;
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .guess-img {
+    width: 35px;
+    height: 35px;
+  }
+
+  #overlay {
+    width: 80%;
+  }
+
+  .overlay-image {
+    width: 130px;
+  }
+
+  .intro-text {
+    font-size: 0.9rem;
+  }
+}

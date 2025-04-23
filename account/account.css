@@ -216,38 +216,56 @@ p {
 
 /* Адаптация */
 @media (max-width: 600px) {
+    body {
+        padding: 20px;
+        flex-direction: column;
+        align-items: stretch;
+        overflow-y: auto;
+    }
+
+    .account-wrapper {
+        width: 100%;
+        padding: 20px;
+        margin-top: 20px;
+        box-sizing: border-box;
+    }
+
+    .animal-container {
+        display: none; /* Спрятать персонажей на мобильных, чтобы не мешали */
+    }
+
     h1 {
-        font-size: 36px;
+        font-size: 28px;
+        line-height: 1.2;
     }
 
     h2 {
-        font-size: 16px;
-        padding: 0 15px;
+        font-size: 14px;
+        letter-spacing: 2px;
+        padding: 0;
+        margin-bottom: 20px;
     }
 
-    .floating-image {
-        width: 120px;
+    p, .stats-list p, .game-stats p {
+        font-size: 12px;
+        word-break: break-word;
     }
 
-    .speech-bubble {
-        font-size: 0.75rem;
-        max-width: 150px;
+    .avatar-section {
+        margin-bottom: 20px;
     }
 
     .avatar-img {
-        width: 100px;
-        height: 100px;
-        border-radius: 50%;
-        object-fit: cover;
+        width: 80px;
+        height: 80px;
     }
-    
 
     .avatar-option {
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
     }
 
-    .achievement-list {
-        font-size: 12px;
+    .speech-bubble {
+        display: none;
     }
 }
