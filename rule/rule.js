@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('username').value = '';
             
             // Перенаправление
-            window.location.href = 'account/account.html';
+            window.location.href = '/account/account.html';
     
         } catch (error) {
             console.error('Ошибка:', error);
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             alert('Вход выполнен успешно!');
             closeModal('modalLogin');
-            window.location.href = 'account/account.html';
+            window.location.href = '/account/account.html';
     
         } catch (err) {
             console.error('Неожиданная ошибка:', err);
