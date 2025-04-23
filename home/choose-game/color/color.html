@@ -6,6 +6,7 @@
     <title>Саймон говорит</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="color.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 <body>
     <!-- Животные с пузырьками -->
@@ -38,6 +39,13 @@
         <img src="character/rabbit.png" alt="Кролик" class="floating-image">
         <div class="speech-bubble">Быстрый ум - быстрая победа!</div>
     </div>
+
+    <!-- Оверлей с изображением и приветствием -->
+    <div id="introOverlay" class="intro-overlay">
+        <img src="character/rabbit.png" alt="Персонаж приветствует" class="intro-image">
+        <p class="intro-text">Добро пожаловать в игру! Ты готов?</p>
+        <button id="startGameBtn" class="start-button">Всегда готов!</button>
+    </div>
     
     <!-- Основной контейнер игры -->
     <div class="content-wrapper hidden" id="gameContainer">
@@ -61,12 +69,6 @@
         </div>
     </div>
     
-    <!-- Оверлей с изображением и приветствием -->
-    <div id="introOverlay" class="intro-overlay">
-        <img src="character/rabbit.png" alt="Персонаж приветствует" class="intro-image">
-        <p class="intro-text">Добро пожаловать в игру! Ты готов?</p>
-        <button id="startGameBtn" class="start-button">Всегда готов!</button>
-    </div>
     
     <!-- Оверлей для завершения уровня -->
     <div id="levelUp" class="level-up-overlay hidden">
@@ -104,6 +106,8 @@
         <button id="restartGameBtn" class="start-button">ИГРАТЬ СНОВА</button>
     </div>
 
+
+    
     <script src="color.js"></script>
 </body>
 </html>

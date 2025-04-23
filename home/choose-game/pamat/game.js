@@ -28,13 +28,18 @@ document.addEventListener('DOMContentLoaded', () => {
         introContent: document.querySelector('.intro-content'), // Контент оверлея
         startGameBtn: document.getElementById('startGameBtn'),
     };
+
+    const supabaseClient = supabase.createClient(
+        'https://rjhqvhwlwdhpbrtytxxp.supabase.co',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqaHF2aHdsd2RocGJydHl0eHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyNjkwNjMsImV4cCI6MjA2MDg0NTA2M30.UuSxSWlp8VSyUyEsGFNkPQm3n2mqRw_hw7kDdz_DqSg'
+    );
+
+    const pairsStats = {
+        points: 0,    // Общее количество очков
+        levels: 0     // Количество пройденных уровней
+    };
   
-    // Проверка существования элементов
-    for (const key in elements) {
-        if (!elements[key]) {
-            console.error(`Element ${key} not found!`);
-        }
-    }
+   
   
     // Настройки уровней
     const levels = [
@@ -322,44 +327,106 @@ document.addEventListener('DOMContentLoaded', () => {
   
     // Уровень завершен
     function levelComplete() {
-      clearInterval(gameState.timer);
-      const bonus = Math.floor(gameState.timeLeft * (1 + gameState.currentLevel * 0.3));
-      gameState.score += bonus;
-  
-      if (elements.newLevel) elements.newLevel.textContent = gameState.currentLevel + 2;
-      if (elements.bonus) elements.bonus.textContent = `+${bonus}`;
-      if (elements.totalScore) elements.totalScore.textContent = gameState.score;
-  
-      if (gameState.currentLevel < levels.length - 1) {
-        const nextLevelData = levelsData[gameState.currentLevel + 1];
-        if (elements.nextLevelCharacter) elements.nextLevelCharacter.src = nextLevelData.image;
-        if (elements.nextLevelTitle) elements.nextLevelTitle.textContent = `УРОВЕНЬ ${gameState.currentLevel + 2}: ${nextLevelData.title.toUpperCase()}`;
-        if (elements.nextLevelPhrase) elements.nextLevelPhrase.textContent = nextLevelData.phrase;
-        
-        if (elements.nextLevelFacts) {
-          elements.nextLevelFacts.innerHTML = "";
-          nextLevelData.facts.forEach(fact => {
-            const li = document.createElement("li");
-            li.textContent = fact;
-            elements.nextLevelFacts.appendChild(li);
-          });
+        clearInterval(gameState.timer);
+        const bonus = Math.floor(gameState.timeLeft * (1 + gameState.currentLevel * 0.3));
+        gameState.score += bonus;
+        pairsStats.points = gameState.score;
+        pairsStats.levels = gameState.currentLevel + 1;
+    
+        if (elements.newLevel) elements.newLevel.textContent = gameState.currentLevel + 2;
+        if (elements.bonus) elements.bonus.textContent = `+${bonus}`;
+        if (elements.totalScore) elements.totalScore.textContent = gameState.score;
+    
+        // Проверяем, есть ли данные для следующего уровня
+        if (gameState.currentLevel < levels.length - 1) {
+            // Безопасное получение данных следующего уровня
+            const nextLevelData = levelsData[gameState.currentLevel] || {}; // Используем текущий уровень, так как levelsData на 1 элемент меньше
+            
+            // Безопасное обновление интерфейса
+            if (elements.nextLevelCharacter) {
+                elements.nextLevelCharacter.src = nextLevelData.image || 'character/default.png';
+            }
+            if (elements.nextLevelTitle) {
+                elements.nextLevelTitle.textContent = `УРОВЕНЬ ${gameState.currentLevel + 2}: ${(nextLevelData.title || 'Новый уровень').toUpperCase()}`;
+            }
+            if (elements.nextLevelPhrase) {
+                elements.nextLevelPhrase.textContent = nextLevelData.phrase || 'Новый уровень готов!';
+            }
+            
+            if (elements.nextLevelFacts) {
+                elements.nextLevelFacts.innerHTML = "";
+                const facts = nextLevelData.facts || [
+                    'Каждый уровень сложнее предыдущего',
+                    'Чем быстрее находишь пары, тем больше очков получаешь',
+                    'Попробуй пройти все уровни без ошибок'
+                ];
+                facts.forEach(fact => {
+                    const li = document.createElement("li");
+                    li.textContent = fact;
+                    elements.nextLevelFacts.appendChild(li);
+                });
+            }
+    
+            if (elements.levelUp) elements.levelUp.classList.remove("hidden");
+        } else {
+            gameComplete();
         }
-  
-        if (elements.levelUp) elements.levelUp.classList.remove("hidden");
-      } else {
-        gameComplete();
-      }
     }
   
     // Игра завершена
-    function gameComplete() {
-      if (elements.finalScore) {
-          elements.finalScore.textContent = `Вы прошли все ${levels.length} уровней с результатом ${gameState.score} очков!`;
-      }
-      if (elements.finalScreen) {
-          elements.finalScreen.style.display = 'flex';
-      }
+async function gameComplete() {
+        if (elements.finalScore) {
+            elements.finalScore.textContent = `Вы прошли все ${levels.length} уровней с результатом ${gameState.score} очков!`;
+        }
+        if (elements.finalScreen) {
+            elements.finalScreen.style.display = 'flex';
+        }
+         // Сохраняем статистику в Supabase
+    try {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        if (user) {
+            const { data: existingStats, error: fetchError } = await supabaseClient
+                .from('stats')
+                .select('*')
+                .eq('user_id', user.id)
+                .single();
+
+            if (existingStats) {
+                // Обновляем существующую статистику
+                const { error: updateError } = await supabaseClient
+                    .from('stats')
+                    .update({
+                        pairs_points: existingStats.pairs_points + pairsStats.points,
+                        pairs_levels: existingStats.pairs_levels + pairsStats.levels,
+                        total_points: existingStats.total_points + pairsStats.points,
+                        total_levels: existingStats.total_levels + pairsStats.levels
+                    })
+                    .eq('user_id', user.id);
+
+                if (updateError) throw updateError;
+            } else {
+                // Создаем новую запись
+                const { error: insertError } = await supabaseClient
+                    .from('stats')
+                    .insert({
+                        user_id: user.id,
+                        pairs_points: pairsStats.points,
+                        pairs_levels: pairsStats.levels,
+                        total_points: pairsStats.points,
+                        total_levels: pairsStats.levels,
+                        flash_points: 0,
+                        flash_levels: 0,
+                        lost_points: 0,
+                        lost_levels: 0
+                    });
+
+                if (insertError) throw insertError;
+            }
+        }
+    } catch (error) {
+        console.error('Ошибка при сохранении статистики:', error);
     }
+}
   
     // Конец игры (время вышло)
     function gameOver() {
@@ -380,9 +447,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function initGame() {
         gameState.currentLevel = 0;
         gameState.score = 0;
+        pairsStats.points = 0;
+        pairsStats.levels = 0;
+        
         if (elements.finalScreen) elements.finalScreen.style.display = 'none';
         if (elements.timeOverOverlay) elements.timeOverOverlay.classList.add('hidden');
-        if (elements.introOverlay) elements.introOverlay.classList.add('hidden'); // Добавьте эту строку
+        if (elements.introOverlay) elements.introOverlay.classList.add('hidden');
         launchGameLevel(gameState.currentLevel);
     }
   

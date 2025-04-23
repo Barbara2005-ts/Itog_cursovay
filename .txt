@@ -264,3 +264,9 @@
   https://supabase.com/dashboard/project/uuxlntdjcmfosskjwyhb
 
   https://replit.com/@barbarats1245
+
+  // Инициализация Supabase
+const supabase = supabase.createClient(
+    'https://rjhqvhwlwdhpbrtytxxp.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqaHF2aHdsd2RocGJydHl0eHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyNjkwNjMsImV4cCI6MjA2MDg0NTA2M30.UuSxSWlp8VSyUyEsGFNkPQm3n2mqRw_hw7kDdz_DqSg'
+);

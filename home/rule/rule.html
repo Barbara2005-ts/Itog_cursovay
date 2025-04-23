@@ -138,12 +138,12 @@
                             <p>Отслеживай прогресс</p>
                         </div>
                         <div class="benefit-card">
-                            <div class="benefit-icon">👑</div>
-                            <p>Попади в топ игроков</p>
+                            <div class="benefit-icon">🔍</div>
+                            <p>Следи за очками</p>
                         </div>
                         <div class="benefit-card">
-                            <div class="benefit-icon">🎁</div>
-                            <p>Получай бонусы</p>
+                            <div class="benefit-icon">🎮</div>
+                            <p>Узнай сколько уровней пройдено</p>
                         </div>
                     </div>
                     <div class="cta-buttons">
@@ -268,14 +268,15 @@
   
   
   <!-- Модалка входа -->
-  <div id="modalLogin" class="modal">
+<div id="modalLogin" class="modal">
     <div class="modal-content">
-      <h2>🔐 Вход</h2>
-      <input type="email" id="login-email" placeholder="Email" required>
-      <input type="password" id="login-password" placeholder="Пароль" required>
-      <button onclick="loginUser()">Войти</button>
+        <span class="close" onclick="closeModal('modalLogin')">&times;</span>
+        <h2>🔐 Вход</h2>
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Пароль" required>
+        <button id="login-btn">Войти</button>
     </div>
-  </div>
+</div>
   
   
 

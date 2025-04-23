@@ -8,6 +8,23 @@ const maxLevel = 10;
 let timerInterval;
 let isMemorizingPhase = true;
 
+// Supabase клиент (добавьте свои данные)
+const supabaseUrl = 'https://rjhqvhwlwdhpbrtytxxp.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJqaHF2aHdsd2RocGJydHl0eHhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDUyNjkwNjMsImV4cCI6MjA2MDg0NTA2M30.UuSxSWlp8VSyUyEsGFNkPQm3n2mqRw_hw7kDdz_DqSg';
+const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+
+let userId = null;
+
+async function getCurrentUser() {
+    const { data: { user } } = await supabaseClient.auth.getUser();
+    if (user) {
+        userId = user.id;
+    }
+}
+
+getCurrentUser();
+
+// Элементы интерфейса
 const gameBoard = document.getElementById('game-board');
 const message = document.getElementById('message');
 const scoreDisplay = document.getElementById('score');
@@ -18,8 +35,10 @@ const startButton = document.getElementById('start-button');
 
 const nextOverlay = document.getElementById('next-overlay');
 const finalOverlay = document.getElementById('final-overlay');
+const finalScoreDisplay = document.getElementById('final-score');
+const finalLevelDisplay = document.getElementById('final-level');
 
-// Инициализация игры
+// Кнопки
 startButton.addEventListener('click', () => {
   startOverlay.style.display = 'none';
   startGame();
@@ -50,8 +69,8 @@ function startGame() {
   const oldGuessContainer = document.getElementById('guess-container');
   if (oldGuessContainer) oldGuessContainer.remove();
 
-  // Настройка сложности в зависимости от уровня
-  const itemsCount = Math.min(3 + Math.floor(level/2), 6);
+  // Настройка сложности
+  const itemsCount = Math.min(3 + Math.floor(level / 2), 6);
   currentItems = [];
   while (currentItems.length < itemsCount) {
     const item = allItems[Math.floor(Math.random() * allItems.length)];
@@ -62,29 +81,29 @@ function startGame() {
 
   missingItem = currentItems[Math.floor(Math.random() * currentItems.length)];
 
-  // Отображение предметов для запоминания
+  // Отображение предметов
   currentItems.forEach(item => {
     const itemElement = document.createElement('div');
     itemElement.className = 'item';
-    
+
     const img = document.createElement('img');
     img.src = `items/${item}.png`;
     img.alt = item;
     img.className = 'item-img';
-    
+
     itemElement.appendChild(img);
     gameBoard.appendChild(itemElement);
   });
 
   // Таймер для фазы запоминания
-  let timeLeft = Math.max(5, 8 - Math.floor(level/3));
+  let timeLeft = Math.max(5, 8 - Math.floor(level / 3));
   timerDisplay.textContent = `${timeLeft}`;
 
   clearInterval(timerInterval);
   timerInterval = setInterval(() => {
     timeLeft--;
     timerDisplay.textContent = `${timeLeft}`;
-    
+
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
       if (isMemorizingPhase) {
@@ -104,12 +123,12 @@ function startGuessingPhase() {
   displayItems.forEach(item => {
     const itemElement = document.createElement('div');
     itemElement.className = 'item';
-    
+
     const img = document.createElement('img');
     img.src = `items/${item}.png`;
     img.alt = item;
     img.className = 'item-img';
-    
+
     itemElement.appendChild(img);
     gameBoard.appendChild(itemElement);
   });
@@ -120,7 +139,7 @@ function startGuessingPhase() {
 function showGuessOptions() {
   const guessContainer = document.createElement('div');
   guessContainer.id = 'guess-container';
-  
+
   const options = [missingItem]; // Правильный вариант
   while (options.length < 4) { // 4 варианта ответа
     const option = allItems[Math.floor(Math.random() * allItems.length)];
@@ -135,51 +154,95 @@ function showGuessOptions() {
   options.forEach(option => {
     const btn = document.createElement('button');
     btn.className = 'guess-button';
-    
+
     const img = document.createElement('img');
     img.src = `items/${option}.png`;
     img.alt = option;
     img.className = 'guess-img';
-    
+
     btn.appendChild(img);
-    btn.addEventListener('click', handleGuess);
+    btn.addEventListener('click', () => handleGuess(option));
     guessContainer.appendChild(btn);
   });
 
-  // Вставка кнопок после игрового поля, но перед сообщением
   gameBoard.insertAdjacentElement('afterend', guessContainer);
   message.style.marginTop = '20px';
 }
 
-function handleGuess(e) {
-  const option = e.currentTarget.querySelector('img').alt;
+async function handleGuess(option) {
   const isCorrect = option === missingItem;
-  
+  const pointsEarned = level * 10; // Бонус за уровень
+
   if (isCorrect) {
-    score += 10;
-    message.textContent = 'Правильно! +10 очков';
+    score += pointsEarned;
+    message.textContent = `Правильно! +${pointsEarned} очков`;
     scoreDisplay.textContent = score;
   } else {
     message.innerHTML = `Неправильно! Пропал: <img src="items/${missingItem}.png" class="missing-item-img">`;
   }
 
-  // Блокировка кнопок после выбора
+  // Блокировка кнопок
   document.querySelectorAll('.guess-button').forEach(btn => {
     btn.disabled = true;
   });
-  
-  // Завершение уровня через 2 секунды
+
   setTimeout(() => {
     const guessContainer = document.getElementById('guess-container');
     if (guessContainer) guessContainer.remove();
-    
+
     message.style.marginTop = '0';
-    
+
     if (level >= maxLevel) {
-      document.getElementById('final-score').textContent = `Ваш счёт: ${score}`;
+      if (finalScoreDisplay && finalLevelDisplay) {
+        finalScoreDisplay.textContent = score;
+        finalLevelDisplay.textContent = level;
+      }
       finalOverlay.style.display = 'flex';
+
+      // Сохранение статистики в Supabase
+      if (userId) {
+        saveStats();
+      }
     } else {
       nextOverlay.style.display = 'flex';
     }
   }, 2000);
+}
+
+async function saveStats() {
+  try {
+    const { data: existingStats, error } = await supabaseClient
+      .from('stats')
+      .select('*')
+      .eq('user_id', userId)
+      .single();
+
+    if (existingStats) {
+      const updatedPoints = existingStats.total_points + score;
+      const updatedLevels = existingStats.total_levels + level;
+
+      await supabaseClient
+        .from('stats')
+        .update({
+          total_points: updatedPoints,
+          total_levels: updatedLevels,
+          lost_points: existingStats.lost_points + score,
+          lost_levels: existingStats.lost_levels + level
+        })
+        .eq('user_id', userId);
+    } else {
+      // Создаем новую запись, если статистики нет
+      await supabaseClient
+        .from('stats')
+        .insert({
+          user_id: userId,
+          total_points: score,
+          total_levels: level,
+          lost_points: score,
+          lost_levels: level
+        });
+    }
+  } catch (err) {
+    console.error('Ошибка при сохранении статистики:', err);
+  }
 }
